@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../app/theme.dart';
@@ -23,7 +24,7 @@ class AppBottomNav extends StatelessWidget {
 
   //  <--------- Layout Metrics --------->
   //* TO expose the bar height so scrolling tab content can pad past it
-  static const height = 84.0;
+  static double get height => 84.h;
 
   //* TO compute the bottom padding a tab needs so its last item clears the bar
   static double contentInset(BuildContext context) =>
@@ -51,18 +52,18 @@ class AppBottomNav extends StatelessWidget {
           decoration: BoxDecoration(
             color: c.navBar,
             border: Border(top: BorderSide(color: c.border)),
-            boxShadow: const [
+            boxShadow: [
               BoxShadow(
-                color: Color(0x0D000000),
-                blurRadius: 24,
-                offset: Offset(0, -8),
+                color: const Color(0x0D000000),
+                blurRadius: 24.r,
+                offset: const Offset(0, -8),
               ),
             ],
           ),
           child: SafeArea(
             top: false,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(24, 9, 24, 6),
+              padding: EdgeInsets.fromLTRB(24.w, 9.h, 24.w, 6.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -120,9 +121,9 @@ class _NavItem extends StatelessWidget {
     final c = context.colors;
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(16.r),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4),
+        padding: EdgeInsets.symmetric(horizontal: 4.w),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -131,8 +132,8 @@ class _NavItem extends StatelessWidget {
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               padding: EdgeInsets.symmetric(
-                horizontal: active ? 20 : 6,
-                vertical: 6,
+                horizontal: active ? 20.w : 6.w,
+                vertical: 6.h,
               ),
               decoration: BoxDecoration(
                 color: active ? c.border : Colors.transparent,
@@ -141,15 +142,15 @@ class _NavItem extends StatelessWidget {
               child: Stack(
                 clipBehavior: Clip.none,
                 children: [
-                  Icon(icon, size: 20, color: active ? c.ink : c.muted),
+                  Icon(icon, size: 20.r, color: active ? c.ink : c.muted),
                   //  <--------- Saved Dot --------->
                   if (showDot)
                     Positioned(
-                      top: -2,
-                      right: -2,
+                      top: -2.h,
+                      right: -2.w,
                       child: Container(
-                        width: 8,
-                        height: 8,
+                        width: 8.r,
+                        height: 8.r,
                         decoration: BoxDecoration(
                           color: c.roseSoft,
                           shape: BoxShape.circle,
@@ -160,11 +161,11 @@ class _NavItem extends StatelessWidget {
               ),
             ),
             //  <--------- Label --------->
-            const SizedBox(height: 3),
+            SizedBox(height: 3.h),
             Text(
               label,
               style: TextStyle(
-                fontSize: 11,
+                fontSize: 11.sp,
                 fontWeight: active ? FontWeight.w700 : FontWeight.w500,
                 color: active ? c.ink : c.muted,
               ),

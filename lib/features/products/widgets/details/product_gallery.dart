@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../app/theme.dart';
 import '../../../../core/utils/formatters.dart';
@@ -49,7 +50,7 @@ class _ProductGalleryState extends State<ProductGallery> {
       child: Container(
         decoration: BoxDecoration(
           color: c.surface,
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(24.r),
           boxShadow: softShadow,
         ),
         clipBehavior: Clip.antiAlias,
@@ -63,7 +64,7 @@ class _ProductGalleryState extends State<ProductGallery> {
               onPageChanged: (i) => setState(() => _index = i),
               itemBuilder: (context, i) {
                 final image = Padding(
-                  padding: const EdgeInsets.all(28),
+                  padding: EdgeInsets.all(28.r),
                   child: ProductImage(url: images[i], fit: BoxFit.contain),
                 );
                 return i == 0
@@ -76,8 +77,8 @@ class _ProductGalleryState extends State<ProductGallery> {
             ),
             //  <--------- Badges Section --------->
             Positioned(
-              top: 16,
-              left: 16,
+              top: 16.h,
+              left: 16.w,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -89,12 +90,12 @@ class _ProductGalleryState extends State<ProductGallery> {
                       foreground: Colors.white,
                       fontSize: 12,
                       letterSpacing: -0.3,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 4,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12.w,
+                        vertical: 4.h,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8.h),
                   ],
                   Pill(
                     label: availability,
@@ -103,15 +104,15 @@ class _ProductGalleryState extends State<ProductGallery> {
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                     letterSpacing: 0.24,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 4,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.w,
+                      vertical: 4.h,
                     ),
                     leading: Icon(
                       product.inStock
                           ? Icons.check_circle_outline_rounded
                           : Icons.remove_circle_outline_rounded,
-                      size: 12,
+                      size: 12.r,
                       color: product.inStock ? c.success : c.danger,
                     ),
                   ),
@@ -120,14 +121,14 @@ class _ProductGalleryState extends State<ProductGallery> {
             ),
             //  <--------- Favorite Section --------->
             Positioned(
-              top: 16,
-              right: 16,
+              top: 16.h,
+              right: 16.w,
               child: FavoriteButton(product: product, size: 40),
             ),
             //  <--------- Page Dots Section --------->
             if (images.length > 1)
               Positioned(
-                bottom: 16,
+                bottom: 16.h,
                 left: 0,
                 right: 0,
                 child: _PageDots(count: images.length, current: _index),
@@ -156,9 +157,9 @@ class _PageDots extends StatelessWidget {
         for (var i = 0; i < count; i++)
           AnimatedContainer(
             duration: const Duration(milliseconds: 200),
-            margin: const EdgeInsets.symmetric(horizontal: 3),
-            width: i == current ? 24 : 6,
-            height: 6,
+            margin: EdgeInsets.symmetric(horizontal: 3.w),
+            width: i == current ? 24.w : 6.w,
+            height: 6.h,
             decoration: BoxDecoration(
               color: i == current ? c.accent : c.ink.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(999),

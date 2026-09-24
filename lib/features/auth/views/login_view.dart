@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../app/routes.dart';
@@ -20,7 +21,7 @@ class LoginView extends GetView<LoginFormController> {
           title: 'Login here',
           subtitle: "Welcome back you've been missed!",
         ),
-        const SizedBox(height: 48),
+        SizedBox(height: 48.h),
         //  <--------- Form Section --------->
         //* TO rebuild the fields when loading or any error changes
         Obx(() {
@@ -41,7 +42,7 @@ class LoginView extends GetView<LoginFormController> {
                 errorText: controller.emailError.value,
                 enabled: !loading,
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20.h),
               //  <--------- Password Field --------->
               AuthField(
                 hint: 'Password',
@@ -54,7 +55,7 @@ class LoginView extends GetView<LoginFormController> {
                 onSubmitted: (_) => controller.submit(),
                 enabled: !loading,
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: 30.h),
               //  <--------- Submit Section --------->
               AuthPrimaryButton(
                 label: 'Sign in',
@@ -64,7 +65,7 @@ class LoginView extends GetView<LoginFormController> {
             ],
           );
         }),
-        const SizedBox(height: 22),
+        SizedBox(height: 22.h),
         //  <--------- Create Account Link --------->
         AuthTextLink(
           label: 'Create new account',

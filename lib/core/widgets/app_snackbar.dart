@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../app/theme.dart';
@@ -69,23 +70,23 @@ class AppSnackBar {
         online ? 'Back online' : 'No internet connection',
         style: TextStyle(
           color: foreground,
-          fontSize: 13,
+          fontSize: 13.sp,
           fontWeight: FontWeight.w600,
         ),
       ),
       icon: Icon(
         online ? Icons.wifi_rounded : Icons.wifi_off_rounded,
         color: foreground,
-        size: 18,
+        size: 18.r,
       ),
       shouldIconPulse: false,
       backgroundColor: background,
       snackPosition: SnackPosition.TOP,
       snackStyle: SnackStyle.FLOATING,
-      maxWidth: 260,
-      margin: EdgeInsets.fromLTRB(16, top + 8, 16, 0),
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-      borderRadius: 20,
+      maxWidth: 260.w,
+      margin: EdgeInsets.fromLTRB(16.w, top + 8.h, 16.w, 0),
+      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
+      borderRadius: 20.r,
       duration: const Duration(seconds: 3),
       animationDuration: const Duration(milliseconds: 250),
       isDismissible: true,

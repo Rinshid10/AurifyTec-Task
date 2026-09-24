@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../app/theme.dart';
@@ -80,7 +81,7 @@ class _HomeViewState extends State<HomeView> with ProductListViewMixin {
                   //  <--------- Category Chips Section --------->
                   SliverToBoxAdapter(
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 16, bottom: 8),
+                      padding: EdgeInsets.only(top: 16.h, bottom: 8.h),
                       child: CategoryChips(list: list),
                     ),
                   ),
@@ -90,7 +91,7 @@ class _HomeViewState extends State<HomeView> with ProductListViewMixin {
                 if (showDeals) ...[
                   SliverToBoxAdapter(
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
+                      padding: EdgeInsets.fromLTRB(24.w, 16.h, 24.w, 0),
                       child: SectionHeader(
                         title: 'Top Deals',
                         subtitle: 'Biggest discounts in the catalogue',
@@ -110,7 +111,7 @@ class _HomeViewState extends State<HomeView> with ProductListViewMixin {
                 //  <--------- Product Grid Section --------->
                 SliverToBoxAdapter(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
+                    padding: EdgeInsets.fromLTRB(24.w, 20.h, 24.w, 0),
                     child: _sectionTitle(c),
                   ),
                 ),

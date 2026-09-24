@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../app/theme.dart';
@@ -49,6 +50,13 @@ class _ExploreViewState extends State<ExploreView> with ProductListViewMixin {
     list.resetFilters();
   }
 
+  //  <--------- Reload Handler --------->
+  //* TO retry products and categories together so one tap recovers the whole screen
+  Future<void> _reloadAll() async {
+    final categories = Get.find<CategoriesController>();
+    await Future.wait([list.reload(), categories.load()]);
+  }
+
   //  <--------- Build --------->
   @override
   Widget build(BuildContext context) {
@@ -58,7 +66,7 @@ class _ExploreViewState extends State<ExploreView> with ProductListViewMixin {
 
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: list.reload,
+        onRefresh: _reloadAll,
         child: Obx(() {
           final products = list.products;
           return CustomScrollView(
@@ -70,7 +78,7 @@ class _ExploreViewState extends State<ExploreView> with ProductListViewMixin {
               //  <--------- Search Section --------->
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
+                  padding: EdgeInsets.fromLTRB(16.w, 4.h, 16.w, 8.h),
                   child: ExploreSearchBar(
                     controller: searchController,
                     onChanged: list.setQuery,
@@ -90,7 +98,7 @@ class _ExploreViewState extends State<ExploreView> with ProductListViewMixin {
               if (list.isNarrowed) ...[
                 SliverToBoxAdapter(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+                    padding: EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 0),
                     child: _resultsHeader(c),
                   ),
                 ),
@@ -98,7 +106,26 @@ class _ExploreViewState extends State<ExploreView> with ProductListViewMixin {
                   context,
                   list: list,
                   onProductTap: openProduct,
-                  horizontalPadding: 16,
+                  horizontalPadding: 16.w,
+                ),
+              ] else if (products.isEmpty && list.state.value.isLoading) ...[
+                //  <--------- Initial Loading Section --------->
+                //* TO show the same full loading view as Home while the first page loads
+                const SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: AppLoadingView(),
+                ),
+              ] else if (products.isEmpty && list.state.value.hasError) ...[
+                //!  <--------- Load Failed Section --------->
+                //* TO show the same full error view as Home, with one retry that reloads products and categories together
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: AppErrorView(
+                    message: ApiException.messageFor(
+                      list.state.value.errorOrNull!,
+                    ),
+                    onRetry: _reloadAll,
+                  ),
                 ),
               ] else ...[
                 //  <--------- Discovery Sections --------->
@@ -145,12 +172,12 @@ class _ExploreViewState extends State<ExploreView> with ProductListViewMixin {
         : list.sort.value.label;
     return SectionHeader(
       title: title,
-      titleSize: 18,
+      titleSize: 18.sp,
       subtitle: parts.isEmpty ? null : parts.join(' · '),
       actionLabel: 'Clear',
       actionColor: c.accent,
       onAction: _clearAll,
-      padding: const EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.only(bottom: 12.h),
     );
   }
 
@@ -161,20 +188,25 @@ class _ExploreViewState extends State<ExploreView> with ProductListViewMixin {
     return [
       SliverToBoxAdapter(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+          padding: EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 0),
           child: state.when(
             loading: () => const SizedBox.shrink(),
-            error: (_) => const SizedBox.shrink(),
+            //* TO keep the section title visible above the error card so the user knows what failed
+            error: (_) => SectionHeader(
+              title: 'Browse by Category',
+              titleSize: 18.sp,
+              padding: EdgeInsets.only(bottom: 8.h),
+            ),
             data: (slugs) => SectionHeader(
               title: 'Browse by Category',
-              titleSize: 18,
+              titleSize: 18.sp,
               actionLabel: _showAllCategories
                   ? 'Show less'
                   : '${slugs.length} Categories',
               actionColor: c.brownMuted,
               onAction: () =>
                   setState(() => _showAllCategories = !_showAllCategories),
-              padding: const EdgeInsets.only(bottom: 8),
+              padding: EdgeInsets.only(bottom: 8.h),
             ),
           ),
         ),
@@ -186,7 +218,7 @@ class _ExploreViewState extends State<ExploreView> with ProductListViewMixin {
         error: (e) => SliverToBoxAdapter(
           child: InlineErrorRow(
             message: ApiException.messageFor(e),
-            onRetry: categories.load,
+            onRetry: _reloadAll,
           ),
         ),
         data: (slugs) {
@@ -194,12 +226,12 @@ class _ExploreViewState extends State<ExploreView> with ProductListViewMixin {
               ? slugs
               : slugs.take(_collapsedCategoryCount).toList();
           return SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
             sliver: SliverGrid(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 8,
+                mainAxisSpacing: 8.h,
+                crossAxisSpacing: 8.w,
                 mainAxisExtent: CategoryGridCard.height,
               ),
               delegate: SliverChildBuilderDelegate(
@@ -228,14 +260,14 @@ class _ExploreViewState extends State<ExploreView> with ProductListViewMixin {
     final names = brands.take(_brandCount).toList();
 
     return [
-      const SliverToBoxAdapter(
+      SliverToBoxAdapter(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(16, 24, 16, 0),
+          padding: EdgeInsets.fromLTRB(16.w, 24.h, 16.w, 0),
           child: SectionHeader(
             title: 'Top Brands',
-            titleSize: 18,
+            titleSize: 18.sp,
             subtitle: 'Brands in the loaded catalogue',
-            padding: EdgeInsets.only(bottom: 8),
+            padding: EdgeInsets.only(bottom: 8.h),
           ),
         ),
       ),
@@ -243,12 +275,12 @@ class _ExploreViewState extends State<ExploreView> with ProductListViewMixin {
       //* TO size the strip as 64 circle + 8 gap + 17 label + 8 list padding
       SliverToBoxAdapter(
         child: SizedBox(
-          height: 104,
+          height: 104.h,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
             itemCount: names.length,
-            separatorBuilder: (_, _) => const SizedBox(width: 8),
+            separatorBuilder: (_, _) => SizedBox(width: 8.w),
             itemBuilder: (context, i) => BrandBubble(
               name: names[i],
               accent: i.isOdd,
@@ -266,15 +298,15 @@ class _ExploreViewState extends State<ExploreView> with ProductListViewMixin {
     return [
       SliverToBoxAdapter(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
+          padding: EdgeInsets.fromLTRB(16.w, 24.h, 16.w, 0),
           child: SectionHeader(
             title: 'Top Rated',
-            titleSize: 18,
+            titleSize: 18.sp,
             subtitle: 'Highest customer ratings',
             actionLabel: 'See all',
             actionColor: c.accent,
             onAction: () => list.setSort(ProductSort.topRated),
-            padding: const EdgeInsets.only(bottom: 8),
+            padding: EdgeInsets.only(bottom: 8.h),
           ),
         ),
       ),
@@ -285,7 +317,7 @@ class _ExploreViewState extends State<ExploreView> with ProductListViewMixin {
         error: (e) => SliverToBoxAdapter(
           child: InlineErrorRow(
             message: ApiException.messageFor(e),
-            onRetry: list.reload,
+            onRetry: _reloadAll,
           ),
         ),
         data: (data) {
@@ -294,14 +326,15 @@ class _ExploreViewState extends State<ExploreView> with ProductListViewMixin {
           final top = best.take(_topRatedCount).toList();
           return SliverLayoutBuilder(
             builder: (context, constraints) {
-              final tileWidth = (constraints.crossAxisExtent - 32 - 8) / 2;
+              final tileWidth =
+                  (constraints.crossAxisExtent - 32.w - 8.w) / 2;
               return SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
                 sliver: SliverGrid(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    mainAxisSpacing: 8,
-                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8.h,
+                    crossAxisSpacing: 8.w,
                     mainAxisExtent: tileWidth + TopRatedCard.textBlockHeight,
                   ),
                   delegate: SliverChildBuilderDelegate(

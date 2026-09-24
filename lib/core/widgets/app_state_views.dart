@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 //  <--------- App Loading View Widget --------->
 //* TO show a centered progress indicator with an optional label
@@ -15,7 +16,7 @@ class AppLoadingView extends StatelessWidget {
         children: [
           const CircularProgressIndicator(),
           if (message != null) ...[
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             Text(message!, style: Theme.of(context).textTheme.bodyMedium),
           ],
         ],
@@ -44,20 +45,20 @@ class AppErrorView extends StatelessWidget {
     final theme = Theme.of(context);
     return Center(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(32),
+        padding: EdgeInsets.all(32.r),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             //  <--------- Icon And Headline --------->
-            Icon(icon, size: 56, color: theme.colorScheme.error),
-            const SizedBox(height: 16),
+            Icon(icon, size: 56.r, color: theme.colorScheme.error),
+            SizedBox(height: 16.h),
             Text(
               'Something went wrong',
               style: theme.textTheme.titleLarge,
               textAlign: TextAlign.center,
             ),
             //  <--------- Message --------->
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             Text(
               message,
               style: theme.textTheme.bodyMedium?.copyWith(
@@ -68,7 +69,7 @@ class AppErrorView extends StatelessWidget {
             //  <--------- Retry Button --------->
             //* TO offer a retry only when a callback is supplied
             if (onRetry != null) ...[
-              const SizedBox(height: 24),
+              SizedBox(height: 24.h),
               FilledButton.icon(
                 onPressed: onRetry,
                 icon: const Icon(Icons.refresh),
@@ -104,13 +105,13 @@ class AppEmptyView extends StatelessWidget {
     final theme = Theme.of(context);
     return Center(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(32),
+        padding: EdgeInsets.all(32.r),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             //  <--------- Icon And Title --------->
-            Icon(icon, size: 64, color: theme.colorScheme.outline),
-            const SizedBox(height: 16),
+            Icon(icon, size: 64.r, color: theme.colorScheme.outline),
+            SizedBox(height: 16.h),
             Text(
               title,
               style: theme.textTheme.titleLarge,
@@ -118,7 +119,7 @@ class AppEmptyView extends StatelessWidget {
             ),
             //  <--------- Subtitle --------->
             if (subtitle != null) ...[
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               Text(
                 subtitle!,
                 style: theme.textTheme.bodyMedium?.copyWith(
@@ -128,7 +129,7 @@ class AppEmptyView extends StatelessWidget {
               ),
             ],
             //  <--------- Action --------->
-            if (action != null) ...[const SizedBox(height: 24), action!],
+            if (action != null) ...[SizedBox(height: 24.h), action!],
           ],
         ),
       ),
@@ -143,31 +144,61 @@ class InlineErrorRow extends StatelessWidget {
     super.key,
     required this.message,
     required this.onRetry,
-    this.padding = const EdgeInsets.symmetric(horizontal: 16),
+    this.padding,
   });
 
   //  <--------- Fields --------->
   final String message;
   final VoidCallback onRetry;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
     return Padding(
-      padding: padding,
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              message,
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
+      padding: padding ?? EdgeInsets.symmetric(horizontal: 16.w),
+      //  <--------- Error Card --------->
+      //* TO mirror the full-page error view at section size: same icon, message and Try again button
+      child: Container(
+        padding: EdgeInsets.fromLTRB(16.w, 14.h, 12.w, 14.h),
+        decoration: BoxDecoration(
+          color: scheme.surface,
+          borderRadius: BorderRadius.circular(16.r),
+          border: Border.all(color: scheme.outline),
+        ),
+        child: Row(
+          children: [
+            Icon(Icons.cloud_off_outlined, size: 22.r, color: scheme.error),
+            SizedBox(width: 12.w),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Something went wrong',
+                    style: theme.textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  SizedBox(height: 2.h),
+                  Text(
+                    message,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: scheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-          TextButton(onPressed: onRetry, child: const Text('Retry')),
-        ],
+            SizedBox(width: 8.w),
+            FilledButton.tonalIcon(
+              onPressed: onRetry,
+              icon: Icon(Icons.refresh, size: 16.r),
+              label: const Text('Try again'),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -176,14 +207,14 @@ class InlineErrorRow extends StatelessWidget {
 //  <--------- Inline Loading Widget --------->
 //* TO show a centered spinner sized for an inline section rather than a full page
 class InlineLoading extends StatelessWidget {
-  const InlineLoading({super.key, this.padding = const EdgeInsets.all(24)});
+  const InlineLoading({super.key, this.padding});
 
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: padding,
+      padding: padding ?? EdgeInsets.all(24.r),
       child: const Center(child: CircularProgressIndicator()),
     );
   }

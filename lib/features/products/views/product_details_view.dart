@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../app/theme.dart';
@@ -75,12 +76,17 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                   //  <--------- App Bar Section --------->
                   const _DetailsAppBar(),
                   SliverPadding(
-                    padding: EdgeInsets.fromLTRB(16, 4, 16, 128 + bottomInset),
+                    padding: EdgeInsets.fromLTRB(
+                      16.w,
+                      4.h,
+                      16.w,
+                      128.h + bottomInset,
+                    ),
                     sliver: SliverList.list(
                       children: [
                         //  <--------- Gallery Section --------->
                         ProductGallery(product: product),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h),
                         //!  <--------- Stale Banner Section --------->
                         //* TO warn that a refresh failed and cached details are shown
                         if (state.hasError)
@@ -92,39 +98,39 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                           ),
                         //  <--------- Brand And Rating Section --------->
                         BrandRatingRow(product: product),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h),
                         //  <--------- Title And Description Section --------->
                         Text(
                           product.title,
                           style: TextStyle(
-                            fontSize: 24,
+                            fontSize: 24.sp,
                             fontWeight: FontWeight.w700,
                             letterSpacing: -0.48,
                             color: c.ink,
                             height: 1.25,
                           ),
                         ),
-                        const SizedBox(height: 4),
+                        SizedBox(height: 4.h),
                         Text(
                           product.description,
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             color: c.brown,
                             height: 1.45,
                           ),
                         ),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h),
                         //  <--------- Price Section --------->
                         PriceBar(product: product),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h),
                         //  <--------- Quick Facts Section --------->
                         QuickFacts(product: product),
                         //  <--------- Tags Section --------->
                         if (product.tags.isNotEmpty) ...[
-                          const SizedBox(height: 20),
+                          SizedBox(height: 20.h),
                           TagRow(tags: product.tags),
                         ],
-                        const SizedBox(height: 20),
+                        SizedBox(height: 20.h),
                         //  <--------- Specifications Section --------->
                         Accordion(
                           icon: Icons.straighten_rounded,
@@ -163,12 +169,12 @@ class _DetailsAppBar extends StatelessWidget {
     final favorites = Get.find<FavoritesController>();
     return SliverAppBar(
       pinned: true,
-      toolbarHeight: 56,
+      toolbarHeight: 56.h,
       titleSpacing: 0,
       backgroundColor: c.background,
       leading: IconButton(
         tooltip: 'Back',
-        icon: Icon(Icons.arrow_back_ios_new_rounded, size: 18, color: c.ink),
+        icon: Icon(Icons.arrow_back_ios_new_rounded, size: 18.r, color: c.ink),
         onPressed: Get.back,
       ),
       title: const Text('Product Details'),
@@ -183,7 +189,7 @@ class _DetailsAppBar extends StatelessWidget {
                 Get.find<NavController>().goToTab(NavController.favorites),
           ),
         ),
-        const SizedBox(width: 8),
+        SizedBox(width: 8.w),
       ],
     );
   }
@@ -201,13 +207,13 @@ class _StaleBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.colors;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.only(bottom: 12.h),
       child: MaterialBanner(
-        padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
+        padding: EdgeInsets.fromLTRB(16.w, 8.h, 8.w, 8.h),
         backgroundColor: c.danger.withValues(alpha: 0.08),
         content: Text(
           'Showing cached details. $message',
-          style: TextStyle(color: c.danger, fontSize: 12),
+          style: TextStyle(color: c.danger, fontSize: 12.sp),
         ),
         actions: [TextButton(onPressed: onRetry, child: const Text('Retry'))],
       ),

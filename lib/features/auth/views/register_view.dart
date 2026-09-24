@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../controllers/register_form_controller.dart';
@@ -19,7 +20,7 @@ class RegisterView extends GetView<RegisterFormController> {
           title: 'Create Account',
           subtitle: 'Create an account so you can explore all the products',
         ),
-        const SizedBox(height: 40),
+        SizedBox(height: 40.h),
         //  <--------- Form Section --------->
         //* TO rebuild the fields when loading or any error changes
         Obx(() {
@@ -40,7 +41,7 @@ class RegisterView extends GetView<RegisterFormController> {
                 errorText: controller.nameError.value,
                 enabled: !loading,
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20.h),
               //  <--------- Email Field --------->
               AuthField(
                 hint: 'Email',
@@ -51,7 +52,7 @@ class RegisterView extends GetView<RegisterFormController> {
                 errorText: controller.emailError.value,
                 enabled: !loading,
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20.h),
               //  <--------- Password Field --------->
               AuthField(
                 hint: 'Password',
@@ -63,7 +64,7 @@ class RegisterView extends GetView<RegisterFormController> {
                 errorText: controller.passwordError.value,
                 enabled: !loading,
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20.h),
               //  <--------- Confirm Password Field --------->
               AuthField(
                 hint: 'Confirm Password',
@@ -75,7 +76,7 @@ class RegisterView extends GetView<RegisterFormController> {
                 onSubmitted: (_) => controller.submit(),
                 enabled: !loading,
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: 30.h),
               //  <--------- Submit Section --------->
               AuthPrimaryButton(
                 label: 'Sign up',
@@ -85,7 +86,7 @@ class RegisterView extends GetView<RegisterFormController> {
             ],
           );
         }),
-        const SizedBox(height: 22),
+        SizedBox(height: 22.h),
         //  <--------- Sign In Link --------->
         AuthTextLink(label: 'Already have an account', onTap: Get.back),
       ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../app/theme.dart';
 import '../../../../core/utils/formatters.dart';
@@ -30,17 +31,17 @@ class BrandRatingRow extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 12.sp,
               fontWeight: FontWeight.w600,
               letterSpacing: 1.2,
               color: c.brown,
             ),
           ),
         ),
-        const SizedBox(width: 12),
+        SizedBox(width: 12.w),
         //  <--------- Rating Pill Section --------->
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
           decoration: BoxDecoration(
             color: c.tintSoft,
             borderRadius: BorderRadius.circular(999),
@@ -48,26 +49,26 @@ class BrandRatingRow extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(
+              Icon(
                 Icons.star_rounded,
-                size: 14,
-                color: Color(0xFFF59E0B),
+                size: 14.r,
+                color: const Color(0xFFF59E0B),
               ),
-              const SizedBox(width: 4),
+              SizedBox(width: 4.w),
               Text(
                 Formatters.rating(product.rating),
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.w700,
                   letterSpacing: 0.24,
                   color: c.ink,
                 ),
               ),
               if (product.reviewCount > 0) ...[
-                const SizedBox(width: 2),
+                SizedBox(width: 2.w),
                 Text(
                   '(${Formatters.compact(product.reviewCount)})',
-                  style: TextStyle(fontSize: 12, color: c.brown),
+                  style: TextStyle(fontSize: 12.sp, color: c.brown),
                 ),
               ],
             ],
@@ -93,10 +94,10 @@ class PriceBar extends StatelessWidget {
     final minOrder = product.minimumOrderQuantity;
 
     return Container(
-      padding: const EdgeInsets.all(8),
+      padding: EdgeInsets.all(8.r),
       decoration: BoxDecoration(
         color: c.surface,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
         boxShadow: softShadow,
       ),
       child: Column(
@@ -104,13 +105,13 @@ class PriceBar extends StatelessWidget {
         children: [
           //  <--------- Price Row Section --------->
           SizedBox(
-            height: 36,
+            height: 36.h,
             child: Row(
               children: [
                 Text(
                   Formatters.price(product.finalPrice),
                   style: TextStyle(
-                    fontSize: 28,
+                    fontSize: 28.sp,
                     fontWeight: FontWeight.w700,
                     letterSpacing: -0.7,
                     color: c.ink,
@@ -118,16 +119,16 @@ class PriceBar extends StatelessWidget {
                   ),
                 ),
                 if (product.hasDiscount) ...[
-                  const SizedBox(width: 8),
+                  SizedBox(width: 8.w),
                   Text(
                     Formatters.price(product.price),
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       color: c.brown,
                       decoration: TextDecoration.lineThrough,
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  SizedBox(width: 8.w),
                   Pill(
                     label: 'Save ${Formatters.price(product.savings)}',
                     background: c.chipRose,
@@ -139,16 +140,20 @@ class PriceBar extends StatelessWidget {
           ),
           //  <--------- Shipping Line Section --------->
           if (shipping != null || minOrder != null) ...[
-            const SizedBox(height: 6),
+            SizedBox(height: 6.h),
             Row(
               children: [
-                Icon(Icons.local_shipping_outlined, size: 14, color: c.accent),
-                const SizedBox(width: 6),
+                Icon(
+                  Icons.local_shipping_outlined,
+                  size: 14.r,
+                  color: c.accent,
+                ),
+                SizedBox(width: 6.w),
                 Expanded(
                   child: Text.rich(
                     TextSpan(
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 12.sp,
                         color: c.brown,
                         height: 1.5,
                       ),
@@ -221,11 +226,11 @@ class QuickFacts extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       padding: EdgeInsets.zero,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        mainAxisSpacing: 8,
-        crossAxisSpacing: 8,
-        mainAxisExtent: 64,
+        mainAxisSpacing: 8.h,
+        crossAxisSpacing: 8.w,
+        mainAxisExtent: 64.h,
       ),
       itemCount: facts.length,
       itemBuilder: (context, i) => _FactChip(
@@ -254,16 +259,16 @@ class _FactChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.colors;
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: EdgeInsets.all(10.r),
       decoration: BoxDecoration(
         color: c.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         boxShadow: softShadow,
       ),
       child: Row(
         children: [
-          Icon(icon, size: 18, color: c.accent),
-          const SizedBox(width: 8),
+          Icon(icon, size: 18.r, color: c.accent),
+          SizedBox(width: 8.w),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -272,7 +277,7 @@ class _FactChip extends StatelessWidget {
                 Text(
                   title,
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w700,
                     letterSpacing: 0.24,
                     color: c.ink,
@@ -282,7 +287,11 @@ class _FactChip extends StatelessWidget {
                   subtitle,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 11, color: c.brown, height: 1.3),
+                  style: TextStyle(
+                    fontSize: 11.sp,
+                    color: c.brown,
+                    height: 1.3,
+                  ),
                 ),
               ],
             ),
@@ -310,19 +319,19 @@ class TagRow extends StatelessWidget {
         Text(
           'TAGS',
           style: TextStyle(
-            fontSize: 12,
+            fontSize: 12.sp,
             fontWeight: FontWeight.w700,
             letterSpacing: 0.6,
             color: c.brown,
           ),
         ),
-        const SizedBox(height: 8),
+        SizedBox(height: 8.h),
         SizedBox(
-          height: 32,
+          height: 32.h,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: tags.length,
-            separatorBuilder: (_, _) => const SizedBox(width: 8),
+            separatorBuilder: (_, _) => SizedBox(width: 8.w),
             itemBuilder: (context, i) => Center(
               child: Pill(
                 label: tags[i],
@@ -331,10 +340,7 @@ class TagRow extends StatelessWidget {
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0.24,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                 leading: Dot(color: c.rose),
               ),
             ),

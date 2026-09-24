@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/theme.dart';
 
@@ -25,12 +26,12 @@ class AuthScaffold extends StatelessWidget {
           children: [
             //  <--------- Decoration Section --------->
             Positioned(
-              top: -140,
-              right: -120,
+              top: -140.h,
+              right: -120.w,
               child: IgnorePointer(
                 child: Container(
-                  width: 320,
-                  height: 320,
+                  width: 320.r,
+                  height: 320.r,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: c.tintSoft,
@@ -42,13 +43,13 @@ class AuthScaffold extends StatelessWidget {
             SafeArea(
               child: LayoutBuilder(
                 builder: (context, constraints) => SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 28,
-                    vertical: 24,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 28.w,
+                    vertical: 24.h,
                   ),
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
-                      minHeight: math.max(0, constraints.maxHeight - 48),
+                      minHeight: math.max(0, constraints.maxHeight - 48.h),
                     ),
                     child: AutofillGroup(
                       child: Column(
@@ -85,20 +86,20 @@ class AuthTitle extends StatelessWidget {
           title,
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: 30,
+            fontSize: 30.sp,
             fontWeight: FontWeight.w800,
             letterSpacing: -0.5,
             color: c.accent,
           ),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h),
         ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 280),
+          constraints: BoxConstraints(maxWidth: 280.w),
           child: Text(
             subtitle,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 18.sp,
               fontWeight: FontWeight.w600,
               color: c.ink,
               height: 1.4,
@@ -178,7 +179,7 @@ class _AuthFieldState extends State<AuthField> {
           duration: const Duration(milliseconds: 150),
           decoration: BoxDecoration(
             color: c.tint,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(16.r),
             border: Border.all(color: borderColor, width: 2),
           ),
           child: TextField(
@@ -192,14 +193,14 @@ class _AuthFieldState extends State<AuthField> {
             onSubmitted: widget.onSubmitted,
             autocorrect: false,
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 12.sp,
               fontWeight: FontWeight.w500,
               color: c.ink,
             ),
             decoration: InputDecoration(
               hintText: widget.hint,
               hintStyle: TextStyle(
-                fontSize: 14,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w500,
                 color: c.brownMuted,
               ),
@@ -209,9 +210,9 @@ class _AuthFieldState extends State<AuthField> {
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
               disabledBorder: InputBorder.none,
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 15,
-                vertical: 15,
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 15.w,
+                vertical: 15.h,
               ),
               //  <--------- Visibility Toggle --------->
               suffixIcon: widget.onToggleObscure == null
@@ -221,7 +222,7 @@ class _AuthFieldState extends State<AuthField> {
                           ? 'Show password'
                           : 'Hide password',
                       onPressed: widget.onToggleObscure,
-                      iconSize: 20,
+                      iconSize: 20.r,
                       icon: Icon(
                         widget.obscure
                             ? Icons.visibility_outlined
@@ -235,10 +236,10 @@ class _AuthFieldState extends State<AuthField> {
         //!  <--------- Error Text --------->
         if (hasError)
           Padding(
-            padding: const EdgeInsets.only(top: 6, left: 4),
+            padding: EdgeInsets.only(top: 6.h, left: 4.w),
             child: Text(
               widget.errorText!,
-              style: TextStyle(fontSize: 12, color: c.danger),
+              style: TextStyle(fontSize: 12.sp, color: c.danger),
             ),
           ),
       ],
@@ -264,7 +265,7 @@ class AuthPrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.colors;
     return SizedBox(
-      height: 58,
+      height: 58.h,
       child: FilledButton(
         onPressed: loading ? null : onPressed,
         style: FilledButton.styleFrom(
@@ -275,15 +276,15 @@ class AuthPrimaryButton extends StatelessWidget {
           elevation: 6,
           shadowColor: c.accent.withValues(alpha: 0.45),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(16.r),
           ),
-          textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+          textStyle: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700),
         ),
         child: loading
-            ? const SizedBox(
-                width: 22,
-                height: 22,
-                child: CircularProgressIndicator(
+            ? SizedBox(
+                width: 22.r,
+                height: 22.r,
+                child: const CircularProgressIndicator(
                   strokeWidth: 2.2,
                   color: Colors.white,
                 ),
@@ -305,12 +306,12 @@ class AuthErrorText extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.colors;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 14),
+      padding: EdgeInsets.only(bottom: 14.h),
       child: Text(
         message,
         textAlign: TextAlign.center,
         style: TextStyle(
-          fontSize: 13,
+          fontSize: 13.sp,
           fontWeight: FontWeight.w500,
           color: c.danger,
           height: 1.4,
@@ -343,13 +344,13 @@ class AuthTextLink extends StatelessWidget {
       alignment: align,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(6.r),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+          padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 8.h),
           child: Text(
             label,
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w600,
               color: accent ? c.accent : c.ink,
             ),

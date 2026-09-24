@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../app/theme.dart';
@@ -33,8 +34,8 @@ class AppTopBar extends StatelessWidget {
 
     return SliverAppBar(
       pinned: true,
-      toolbarHeight: 56,
-      titleSpacing: 16,
+      toolbarHeight: 56.h,
+      titleSpacing: 16.w,
       backgroundColor: c.background,
       title: Text(title),
       actions: [
@@ -55,7 +56,7 @@ class AppTopBar extends StatelessWidget {
         //* TO open the profile tab from the avatar, or keep spacing when it is hidden
         if (showAvatar)
           Padding(
-            padding: const EdgeInsets.only(right: 16, left: 4),
+            padding: EdgeInsets.only(right: 16.w, left: 4.w),
             child: Obx(
               () => InkWell(
                 onTap: () => nav.select(NavController.profile),
@@ -65,7 +66,7 @@ class AppTopBar extends StatelessWidget {
             ),
           )
         else
-          const SizedBox(width: 12),
+          SizedBox(width: 12.w),
       ],
     );
   }

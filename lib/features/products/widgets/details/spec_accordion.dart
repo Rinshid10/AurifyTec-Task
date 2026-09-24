@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../app/theme.dart';
 import '../../../../core/utils/formatters.dart';
@@ -37,7 +38,7 @@ class _AccordionState extends State<Accordion> {
     return Container(
       decoration: BoxDecoration(
         color: c.surface,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
         boxShadow: softShadow,
       ),
       clipBehavior: Clip.antiAlias,
@@ -48,16 +49,16 @@ class _AccordionState extends State<Accordion> {
           InkWell(
             onTap: () => setState(() => _open = !_open),
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(16.r),
               child: Row(
                 children: [
-                  Icon(widget.icon, size: 17, color: c.accent),
-                  const SizedBox(width: 10),
+                  Icon(widget.icon, size: 17.r, color: c.accent),
+                  SizedBox(width: 10.w),
                   Expanded(
                     child: Text(
                       widget.title,
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w700,
                         letterSpacing: 0.14,
                         color: c.ink,
@@ -69,7 +70,7 @@ class _AccordionState extends State<Accordion> {
                     duration: const Duration(milliseconds: 200),
                     child: Icon(
                       Icons.keyboard_arrow_down_rounded,
-                      size: 20,
+                      size: 20.r,
                       color: c.brown,
                     ),
                   ),
@@ -85,7 +86,7 @@ class _AccordionState extends State<Accordion> {
             alignment: Alignment.topCenter,
             child: _open
                 ? Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
                     child: widget.child,
                   )
                 : const SizedBox(width: double.infinity),
@@ -127,15 +128,15 @@ class SpecTable extends StatelessWidget {
     return Column(
       children: [
         for (var i = 0; i < rows.length; i++) ...[
-          if (i > 0) Divider(height: 1, color: c.divider),
+          if (i > 0) Divider(height: 1.h, color: c.divider),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
+            padding: EdgeInsets.symmetric(vertical: 10.h),
             child: Row(
               children: [
                 Expanded(
                   child: Text(
                     rows[i].$1,
-                    style: TextStyle(fontSize: 12, color: c.brown),
+                    style: TextStyle(fontSize: 12.sp, color: c.brown),
                   ),
                 ),
                 Flexible(
@@ -143,7 +144,7 @@ class SpecTable extends StatelessWidget {
                     rows[i].$2,
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.w600,
                       color: c.ink,
                     ),
