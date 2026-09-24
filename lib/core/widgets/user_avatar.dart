@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../app/theme.dart';
 
@@ -22,16 +23,16 @@ class UserAvatar extends StatelessWidget {
     final c = context.colors;
     final initial = name.trim().isEmpty ? '?' : name.trim()[0].toUpperCase();
     return SizedBox(
-      width: size,
-      height: size,
+      width: size.r,
+      height: size.r,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
           //  <--------- Gradient Circle --------->
           //* TO draw the blue gradient disc with the first letter of the name
           Container(
-            width: size,
-            height: size,
+            width: size.r,
+            height: size.r,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -47,7 +48,7 @@ class UserAvatar extends StatelessWidget {
               initial,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: size * 0.4,
+                fontSize: (size * 0.4).sp,
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -59,8 +60,8 @@ class UserAvatar extends StatelessWidget {
               right: 0,
               bottom: 0,
               child: Container(
-                width: 12,
-                height: 12,
+                width: 12.r,
+                height: 12.r,
                 decoration: BoxDecoration(
                   color: c.success,
                   shape: BoxShape.circle,

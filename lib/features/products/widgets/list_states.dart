@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/theme.dart';
 import '../../../core/network/api_exception.dart';
@@ -13,16 +14,17 @@ List<Widget> productListSlivers(
   BuildContext context, {
   required ProductListController list,
   required ValueChanged<Product> onProductTap,
-  double horizontalPadding = 24,
+  double? horizontalPadding,
 }) {
+  final padding = horizontalPadding ?? 24.w;
   return list.state.value.when(
     //  <--------- Loading --------->
-    loading: () => const [
+    loading: () => [
       SliverFillRemaining(
         hasScrollBody: false,
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 48),
-          child: AppLoadingView(),
+          padding: EdgeInsets.symmetric(vertical: 48.h),
+          child: const AppLoadingView(),
         ),
       ),
     ],
@@ -52,16 +54,11 @@ List<Widget> productListSlivers(
         ProductSliverGrid(
           products: data.products,
           onProductTap: onProductTap,
-          horizontalPadding: horizontalPadding,
+          horizontalPadding: padding,
         ),
         SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.fromLTRB(
-              horizontalPadding,
-              12,
-              horizontalPadding,
-              8,
-            ),
+            padding: EdgeInsets.fromLTRB(padding, 12.h, padding, 8.h),
             child: ListFooter(
               data: data,
               onLoadMore: () => list.loadMore(retry: true),
@@ -120,13 +117,13 @@ class ListFooter extends StatelessWidget {
     final c = context.colors;
     //  <--------- Loading More --------->
     if (data.isLoadingMore) {
-      return const Center(
+      return Center(
         child: Padding(
-          padding: EdgeInsets.all(8),
+          padding: EdgeInsets.all(8.r),
           child: SizedBox(
-            width: 22,
-            height: 22,
-            child: CircularProgressIndicator(strokeWidth: 2),
+            width: 22.r,
+            height: 22.r,
+            child: const CircularProgressIndicator(strokeWidth: 2),
           ),
         ),
       );
@@ -139,11 +136,11 @@ class ListFooter extends StatelessWidget {
         children: [
           Text(
             'Could not load more products.',
-            style: TextStyle(fontSize: 12, color: c.brown),
+            style: TextStyle(fontSize: 12.sp, color: c.brown),
           ),
           TextButton.icon(
             onPressed: onLoadMore,
-            icon: const Icon(Icons.refresh, size: 16),
+            icon: Icon(Icons.refresh, size: 16.r),
             label: const Text('Retry'),
           ),
         ],
@@ -154,7 +151,7 @@ class ListFooter extends StatelessWidget {
       return Center(
         child: Text(
           "You're all caught up · ${data.products.length} products",
-          style: TextStyle(fontSize: 11, color: c.muted),
+          style: TextStyle(fontSize: 11.sp, color: c.muted),
         ),
       );
     }

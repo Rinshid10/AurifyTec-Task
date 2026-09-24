@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../app/theme.dart';
@@ -36,7 +37,7 @@ class HomeHeader extends StatelessWidget {
     final favorites = Get.find<FavoritesController>();
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 12, 24, 4),
+      padding: EdgeInsets.fromLTRB(24.w, 12.h, 24.w, 4.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -50,7 +51,7 @@ class HomeHeader extends StatelessWidget {
                   showStatus: true,
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12.w),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +59,7 @@ class HomeHeader extends StatelessWidget {
                     Text(
                       'WELCOME BACK',
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w600,
                         letterSpacing: 0.6,
                         color: c.muted,
@@ -71,7 +72,7 @@ class HomeHeader extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.w700,
                           letterSpacing: -0.45,
                           color: c.ink,
@@ -93,11 +94,11 @@ class HomeHeader extends StatelessWidget {
                       Get.find<NavController>().select(NavController.favorites),
                 ),
               ),
-              const SizedBox(width: 10),
-              const CartIconButton(filled: true, size: 40),
+              SizedBox(width: 10.w),
+              CartIconButton(filled: true, size: 40),
             ],
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
           //  <--------- Search Row Section --------->
           Row(
             children: [
@@ -108,7 +109,7 @@ class HomeHeader extends StatelessWidget {
                   onClear: onSearchCleared,
                 ),
               ),
-              const SizedBox(width: 10),
+              SizedBox(width: 10.w),
               _FilterButton(active: filterActive, onTap: onFilterTap),
             ],
           ),
@@ -133,25 +134,29 @@ class _FilterButton extends StatelessWidget {
       message: 'Sort & filter',
       child: Material(
         color: c.button,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
         child: InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16.r),
           child: SizedBox(
-            width: 44,
-            height: 44,
+            width: 44.r,
+            height: 44.r,
             child: Stack(
               children: [
                 Center(
-                  child: Icon(Icons.tune_rounded, size: 20, color: c.onButton),
+                  child: Icon(
+                    Icons.tune_rounded,
+                    size: 20.r,
+                    color: c.onButton,
+                  ),
                 ),
                 if (active)
                   Positioned(
-                    top: 8,
-                    right: 8,
+                    top: 8.h,
+                    right: 8.w,
                     child: Container(
-                      width: 8,
-                      height: 8,
+                      width: 8.r,
+                      height: 8.r,
                       decoration: BoxDecoration(
                         color: c.surface,
                         shape: BoxShape.circle,
@@ -192,25 +197,25 @@ class HomeSearchField extends StatelessWidget {
           onChanged: onChanged,
           textInputAction: TextInputAction.search,
           style: TextStyle(
-            fontSize: 14,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w500,
             color: c.ink,
           ),
           decoration: InputDecoration(
             hintText: 'Search products...',
-            prefixIcon: Icon(Icons.search_rounded, size: 20, color: c.muted),
-            prefixIconConstraints: const BoxConstraints(minWidth: 44),
+            prefixIcon: Icon(Icons.search_rounded, size: 20.r, color: c.muted),
+            prefixIconConstraints: BoxConstraints(minWidth: 44.w),
             suffixIcon: value.text.isEmpty
                 ? null
                 : IconButton(
-                    icon: Icon(Icons.close_rounded, size: 18, color: c.muted),
+                    icon: Icon(Icons.close_rounded, size: 18.r, color: c.muted),
                     tooltip: 'Clear',
                     onPressed: onClear,
                   ),
             isDense: true,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 13,
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 16.w,
+              vertical: 13.h,
             ),
           ),
         );

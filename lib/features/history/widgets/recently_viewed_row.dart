@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../app/routes.dart';
@@ -31,11 +32,11 @@ class RecentlyViewedRow extends StatelessWidget {
           //!  <--------- Header Section --------->
           //* TO show the history icon and title with a clear action
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
+            padding: EdgeInsets.fromLTRB(16.w, 24.h, 16.w, 0),
             child: Row(
               children: [
-                Icon(Icons.history_rounded, size: 16, color: c.accent),
-                const SizedBox(width: 8),
+                Icon(Icons.history_rounded, size: 16.r, color: c.accent),
+                SizedBox(width: 8.w),
                 Expanded(
                   child: SectionHeader(
                     title: 'Recently Viewed',
@@ -43,7 +44,7 @@ class RecentlyViewedRow extends StatelessWidget {
                     actionLabel: 'Clear',
                     actionColor: c.accent,
                     onAction: history.clear,
-                    padding: const EdgeInsets.only(bottom: 8),
+                    padding: EdgeInsets.only(bottom: 8.h),
                   ),
                 ),
               ],
@@ -52,21 +53,21 @@ class RecentlyViewedRow extends StatelessWidget {
           //  <--------- Cards Strip Section --------->
           //* TO scroll compact product cards horizontally
           SizedBox(
-            height: 200,
+            height: 200.h,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
               itemCount: items.length,
-              separatorBuilder: (_, _) => const SizedBox(width: 16),
+              separatorBuilder: (_, _) => SizedBox(width: 16.w),
               itemBuilder: (context, i) {
                 final product = items[i];
                 //  <--------- Compact Card Section --------->
                 //* TO open the product details when the card is tapped
                 return SizedBox(
-                  width: 144,
+                  width: 144.w,
                   child: Material(
                     color: c.surface,
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(16.r),
                     clipBehavior: Clip.antiAlias,
                     elevation: 0.5,
                     shadowColor: Colors.black12,
@@ -76,23 +77,23 @@ class RecentlyViewedRow extends StatelessWidget {
                         arguments: product,
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(10),
+                        padding: EdgeInsets.all(10.r),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             //  <--------- Image Section --------->
                             //* TO show the thumbnail with a favorite toggle on top
                             SizedBox(
-                              height: 124,
+                              height: 124.h,
                               child: Stack(
                                 fit: StackFit.expand,
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.circular(12),
+                                    borderRadius: BorderRadius.circular(12.r),
                                     child: ColoredBox(
                                       color: c.tintSoft,
                                       child: Padding(
-                                        padding: const EdgeInsets.all(8),
+                                        padding: EdgeInsets.all(8.r),
                                         child: ProductImage(
                                           url: product.thumbnail,
                                           fit: BoxFit.contain,
@@ -101,8 +102,8 @@ class RecentlyViewedRow extends StatelessWidget {
                                     ),
                                   ),
                                   Positioned(
-                                    top: 6,
-                                    right: 6,
+                                    top: 6.h,
+                                    right: 6.w,
                                     child: FavoriteButton(
                                       product: product,
                                       size: 24,
@@ -111,24 +112,24 @@ class RecentlyViewedRow extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 8),
+                            SizedBox(height: 8.h),
                             //  <--------- Title And Price Section --------->
                             Text(
                               product.title,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                fontSize: 10,
+                                fontSize: 10.sp,
                                 fontWeight: FontWeight.w700,
                                 letterSpacing: 0.4,
                                 color: c.brown,
                               ),
                             ),
-                            const SizedBox(height: 2),
+                            SizedBox(height: 2.h),
                             Text(
                               Formatters.price(product.finalPrice),
                               style: TextStyle(
-                                fontSize: 12,
+                                fontSize: 12.sp,
                                 fontWeight: FontWeight.w700,
                                 letterSpacing: 0.24,
                                 color: c.ink,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../app/theme.dart';
 
@@ -14,7 +15,7 @@ class SectionHeader extends StatelessWidget {
     this.onAction,
     this.actionColor,
     this.titleSize = 16,
-    this.padding = const EdgeInsets.fromLTRB(0, 0, 0, 12),
+    this.padding,
   });
 
   //  <--------- Fields --------->
@@ -25,13 +26,13 @@ class SectionHeader extends StatelessWidget {
   final VoidCallback? onAction;
   final Color? actionColor;
   final double titleSize;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
     return Padding(
-      padding: padding,
+      padding: padding ?? EdgeInsets.fromLTRB(0, 0, 0, 12.h),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -49,7 +50,7 @@ class SectionHeader extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          fontSize: titleSize,
+                          fontSize: titleSize.sp,
                           fontWeight: FontWeight.w800,
                           letterSpacing: -0.4,
                           color: c.ink,
@@ -57,7 +58,7 @@ class SectionHeader extends StatelessWidget {
                       ),
                     ),
                     if (accessory != null) ...[
-                      const SizedBox(width: 8),
+                      SizedBox(width: 8.w),
                       accessory!,
                     ],
                   ],
@@ -67,7 +68,7 @@ class SectionHeader extends StatelessWidget {
                     subtitle!,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 11, color: c.muted),
+                    style: TextStyle(fontSize: 11.sp, color: c.muted),
                   ),
               ],
             ),
@@ -77,13 +78,13 @@ class SectionHeader extends StatelessWidget {
           if (actionLabel != null)
             InkWell(
               onTap: onAction,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(8.r),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
                 child: Text(
                   actionLabel!,
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w700,
                     color: actionColor ?? c.subtle,
                   ),

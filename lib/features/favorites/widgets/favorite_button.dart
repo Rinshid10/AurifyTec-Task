@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../app/theme.dart';
@@ -42,8 +43,8 @@ class FavoriteButton extends StatelessWidget {
             //  <--------- Icon Section --------->
             //* TO scale between the filled and outlined heart on change
             child: SizedBox(
-              width: size,
-              height: size,
+              width: size.r,
+              height: size.r,
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 200),
                 transitionBuilder: (child, anim) =>
@@ -53,7 +54,7 @@ class FavoriteButton extends StatelessWidget {
                       ? Icons.favorite_rounded
                       : Icons.favorite_border_rounded,
                   key: ValueKey(isFavorite),
-                  size: size / 2,
+                  size: (size / 2).r,
                   color: isFavorite ? c.rose : c.inkSoft,
                 ),
               ),

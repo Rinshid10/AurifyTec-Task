@@ -172,7 +172,7 @@ class _ExploreViewState extends State<ExploreView> with ProductListViewMixin {
         : list.sort.value.label;
     return SectionHeader(
       title: title,
-      titleSize: 18.sp,
+      titleSize: 18,
       subtitle: parts.isEmpty ? null : parts.join(' · '),
       actionLabel: 'Clear',
       actionColor: c.accent,
@@ -194,12 +194,12 @@ class _ExploreViewState extends State<ExploreView> with ProductListViewMixin {
             //* TO keep the section title visible above the error card so the user knows what failed
             error: (_) => SectionHeader(
               title: 'Browse by Category',
-              titleSize: 18.sp,
+              titleSize: 18,
               padding: EdgeInsets.only(bottom: 8.h),
             ),
             data: (slugs) => SectionHeader(
               title: 'Browse by Category',
-              titleSize: 18.sp,
+              titleSize: 18,
               actionLabel: _showAllCategories
                   ? 'Show less'
                   : '${slugs.length} Categories',
@@ -265,7 +265,7 @@ class _ExploreViewState extends State<ExploreView> with ProductListViewMixin {
           padding: EdgeInsets.fromLTRB(16.w, 24.h, 16.w, 0),
           child: SectionHeader(
             title: 'Top Brands',
-            titleSize: 18.sp,
+            titleSize: 18,
             subtitle: 'Brands in the loaded catalogue',
             padding: EdgeInsets.only(bottom: 8.h),
           ),
@@ -301,7 +301,7 @@ class _ExploreViewState extends State<ExploreView> with ProductListViewMixin {
           padding: EdgeInsets.fromLTRB(16.w, 24.h, 16.w, 0),
           child: SectionHeader(
             title: 'Top Rated',
-            titleSize: 18.sp,
+            titleSize: 18,
             subtitle: 'Highest customer ratings',
             actionLabel: 'See all',
             actionColor: c.accent,
@@ -326,8 +326,7 @@ class _ExploreViewState extends State<ExploreView> with ProductListViewMixin {
           final top = best.take(_topRatedCount).toList();
           return SliverLayoutBuilder(
             builder: (context, constraints) {
-              final tileWidth =
-                  (constraints.crossAxisExtent - 32.w - 8.w) / 2;
+              final tileWidth = (constraints.crossAxisExtent - 32.w - 8.w) / 2;
               return SliverPadding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 sliver: SliverGrid(

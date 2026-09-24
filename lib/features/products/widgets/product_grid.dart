@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../data/product.dart';
 import 'product_card.dart';
@@ -10,15 +11,15 @@ class ProductSliverGrid extends StatelessWidget {
     super.key,
     required this.products,
     required this.onProductTap,
-    this.horizontalPadding = 24,
-    this.spacing = 14,
+    this.horizontalPadding,
+    this.spacing,
   });
 
   //  <--------- Fields --------->
   final List<Product> products;
   final ValueChanged<Product> onProductTap;
-  final double horizontalPadding;
-  final double spacing;
+  final double? horizontalPadding;
+  final double? spacing;
 
   //  <--------- Helpers --------->
   //* TO pick the column count for the available width
@@ -31,16 +32,17 @@ class ProductSliverGrid extends StatelessWidget {
   //  <--------- Build --------->
   @override
   Widget build(BuildContext context) {
+    final padding = horizontalPadding ?? 24.w;
     return SliverLayoutBuilder(
       builder: (context, constraints) {
         final columns = columnsForWidth(constraints.crossAxisExtent);
         return SliverPadding(
-          padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+          padding: EdgeInsets.symmetric(horizontal: padding),
           sliver: SliverGrid(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: columns,
-              mainAxisSpacing: spacing,
-              crossAxisSpacing: spacing,
+              mainAxisSpacing: spacing ?? 14.h,
+              crossAxisSpacing: spacing ?? 14.w,
               mainAxisExtent: ProductCard.height,
             ),
             delegate: SliverChildBuilderDelegate((context, index) {
@@ -64,30 +66,31 @@ class ProductCarousel extends StatelessWidget {
     super.key,
     required this.products,
     required this.onProductTap,
-    this.horizontalPadding = 24,
-    this.spacing = 14,
+    this.horizontalPadding,
+    this.spacing,
   });
 
   //  <--------- Fields --------->
   final List<Product> products;
   final ValueChanged<Product> onProductTap;
-  final double horizontalPadding;
-  final double spacing;
+  final double? horizontalPadding;
+  final double? spacing;
 
   //  <--------- Build --------->
   @override
   Widget build(BuildContext context) {
+    final padding = horizontalPadding ?? 24.w;
+    final gap = spacing ?? 14.w;
     return LayoutBuilder(
       builder: (context, constraints) {
-        final cardWidth =
-            (constraints.maxWidth - horizontalPadding * 2 - spacing) / 2;
+        final cardWidth = (constraints.maxWidth - padding * 2 - gap) / 2;
         return SizedBox(
           height: ProductCard.height,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+            padding: EdgeInsets.symmetric(horizontal: padding),
             itemCount: products.length,
-            separatorBuilder: (_, _) => SizedBox(width: spacing),
+            separatorBuilder: (_, _) => SizedBox(width: gap),
             itemBuilder: (context, index) {
               final product = products[index];
               return SizedBox(

@@ -1,5 +1,7 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:product_explorer/app/app.dart';
 import 'package:product_explorer/app/theme.dart';
 import 'package:product_explorer/features/auth/controllers/auth_controller.dart';
 import 'package:product_explorer/features/auth/controllers/login_form_controller.dart';
@@ -15,9 +17,16 @@ void main() {
     Get.put(auth);
     Get.put(LoginFormController(auth));
 
+    // The views use ScreenUtil units, so the test must initialise it like
+    // the real app does.
     await tester.pumpWidget(
-      GetMaterialApp(theme: AppTheme.light(), home: const LoginView()),
+      ScreenUtilInit(
+        designSize: ProductExplorerApp.designSize,
+        builder: (context, child) =>
+            GetMaterialApp(theme: AppTheme.light(), home: const LoginView()),
+      ),
     );
+    await tester.pumpAndSettle();
 
     expect(find.text('Login here'), findsOneWidget);
     expect(find.text('Sign in'), findsOneWidget);
@@ -33,10 +42,7 @@ class _QuietAuth extends AuthRepository {
   Stream<AuthUser?> get authStateChanges => const Stream.empty();
 
   @override
-  Future<AuthUser> signIn({
-    required String email,
-    required String password,
-  }) {
+  Future<AuthUser> signIn({required String email, required String password}) {
     throw UnimplementedError();
   }
 

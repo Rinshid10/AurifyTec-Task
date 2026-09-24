@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../app/theme.dart';
 
@@ -24,8 +25,8 @@ class ProductImage extends StatelessWidget {
       fadeInDuration: const Duration(milliseconds: 200),
       placeholder: (_, _) => Center(
         child: SizedBox(
-          width: 20,
-          height: 20,
+          width: 20.r,
+          height: 20.r,
           child: CircularProgressIndicator(strokeWidth: 2, color: c.muted),
         ),
       ),
@@ -44,7 +45,7 @@ class _Fallback extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Icon(Icons.image_not_supported_outlined, size: 32, color: color),
+      child: Icon(Icons.image_not_supported_outlined, size: 32.r, color: color),
     );
   }
 }

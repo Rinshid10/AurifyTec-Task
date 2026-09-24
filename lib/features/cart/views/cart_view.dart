@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../app/routes.dart';
@@ -62,14 +63,14 @@ class CartView extends GetView<CartController> {
                 //* TO show the back button, title and profile avatar
                 SliverAppBar(
                   pinned: true,
-                  toolbarHeight: 56,
+                  toolbarHeight: 56.h,
                   titleSpacing: 0,
                   backgroundColor: c.background,
                   leading: IconButton(
                     tooltip: 'Back',
                     icon: Icon(
                       Icons.arrow_back_ios_new_rounded,
-                      size: 18,
+                      size: 18.r,
                       color: c.ink,
                     ),
                     onPressed: Get.back,
@@ -77,7 +78,7 @@ class CartView extends GetView<CartController> {
                   title: const Text('Shopping Cart'),
                   actions: [
                     Padding(
-                      padding: const EdgeInsets.only(right: 16),
+                      padding: EdgeInsets.only(right: 16.w),
                       child: InkWell(
                         onTap: () => Get.find<NavController>().goToTab(
                           NavController.profile,
@@ -100,7 +101,7 @@ class CartView extends GetView<CartController> {
                           'Add products from the catalogue to see them here.',
                       action: FilledButton.icon(
                         onPressed: Get.back,
-                        icon: const Icon(Icons.storefront_outlined, size: 18),
+                        icon: Icon(Icons.storefront_outlined, size: 18.r),
                         label: const Text('Continue shopping'),
                       ),
                     ),
@@ -109,19 +110,24 @@ class CartView extends GetView<CartController> {
                   //  <--------- Bag Items Section --------->
                   //* TO list the bag header, one tile per line and the order summary
                   SliverPadding(
-                    padding: EdgeInsets.fromLTRB(16, 4, 16, 120 + bottomInset),
+                    padding: EdgeInsets.fromLTRB(
+                      16.w,
+                      4.h,
+                      16.w,
+                      120.h + bottomInset,
+                    ),
                     sliver: SliverList.list(
                       children: [
                         _BagHeader(
                           count: controller.itemCount,
                           onClear: _clearAll,
                         ),
-                        const SizedBox(height: 8),
+                        SizedBox(height: 8.h),
                         for (final line in controller.lines) ...[
                           _CartLineTile(line: line),
-                          const SizedBox(height: 8),
+                          SizedBox(height: 8.h),
                         ],
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h),
                         //  <--------- Order Summary Section --------->
                         _OrderSummary(
                           itemCount: controller.itemCount,
@@ -165,24 +171,24 @@ class _BagHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.colors;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: EdgeInsets.symmetric(vertical: 4.h),
       child: Row(
         children: [
           //  <--------- Title Section --------->
           Text(
             'My Bag',
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 20.sp,
               fontWeight: FontWeight.w600,
               letterSpacing: -0.3,
               color: c.ink,
             ),
           ),
-          const SizedBox(width: 6),
+          SizedBox(width: 6.w),
           //  <--------- Count Badge Section --------->
           Container(
-            width: 24,
-            height: 24,
+            width: 24.r,
+            height: 24.r,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: c.chipRose,
@@ -191,7 +197,7 @@ class _BagHeader extends StatelessWidget {
             child: Text(
               '$count',
               style: TextStyle(
-                fontSize: 12,
+                fontSize: 12.sp,
                 fontWeight: FontWeight.w700,
                 color: c.accent,
               ),
@@ -206,14 +212,11 @@ class _BagHeader extends StatelessWidget {
               onTap: onClear,
               customBorder: const StadiumBorder(),
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
                 child: Text(
                   'Clear all',
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 0.24,
                     color: c.accent,
@@ -255,16 +258,16 @@ class _CartLineTile extends GetView<CartController> {
       onDismissed: (_) => controller.remove(product.id),
       background: Container(
         alignment: Alignment.centerRight,
-        padding: const EdgeInsets.only(right: 20),
+        padding: EdgeInsets.only(right: 20.w),
         decoration: BoxDecoration(
           color: c.danger.withValues(alpha: 0.12),
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.r),
         ),
         child: Icon(Icons.delete_outline_rounded, color: c.danger),
       ),
       child: Material(
         color: c.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         clipBehavior: Clip.antiAlias,
         elevation: 0.5,
         shadowColor: Colors.black12,
@@ -275,23 +278,23 @@ class _CartLineTile extends GetView<CartController> {
             arguments: product,
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8),
+            padding: EdgeInsets.all(8.r),
             child: Row(
               children: [
                 //  <--------- Image Section --------->
                 //* TO show the thumbnail with a category pill on top
                 SizedBox(
-                  width: 80,
-                  height: 96,
+                  width: 80.w,
+                  height: 96.h,
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.r),
                         child: ColoredBox(
                           color: c.tint,
                           child: Padding(
-                            padding: const EdgeInsets.all(6),
+                            padding: EdgeInsets.all(6.r),
                             child: ProductImage(
                               url: product.thumbnail,
                               fit: BoxFit.contain,
@@ -300,8 +303,8 @@ class _CartLineTile extends GetView<CartController> {
                         ),
                       ),
                       Positioned(
-                        left: 4,
-                        bottom: 4,
+                        left: 4.w,
+                        bottom: 4.h,
                         child: Pill(
                           label: Formatters.categoryLabel(product.category),
                           background: c.ink.withValues(alpha: 0.7),
@@ -309,20 +312,20 @@ class _CartLineTile extends GetView<CartController> {
                           fontSize: 9,
                           fontWeight: FontWeight.w400,
                           letterSpacing: 0,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 6,
-                            vertical: 2,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 6.w,
+                            vertical: 2.h,
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: 8.w),
                 //  <--------- Details Section --------->
                 Expanded(
                   child: SizedBox(
-                    height: 96,
+                    height: 96.h,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -337,7 +340,7 @@ class _CartLineTile extends GetView<CartController> {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 15.sp,
                                   color: c.ink,
                                   height: 1.33,
                                 ),
@@ -345,19 +348,19 @@ class _CartLineTile extends GetView<CartController> {
                             ),
                             InkWell(
                               onTap: () => controller.remove(product.id),
-                              borderRadius: BorderRadius.circular(6),
+                              borderRadius: BorderRadius.circular(6.r),
                               child: Padding(
-                                padding: const EdgeInsets.fromLTRB(4, 2, 0, 6),
+                                padding: EdgeInsets.fromLTRB(4.w, 2.h, 0, 6.h),
                                 child: Icon(
                                   Icons.delete_outline_rounded,
-                                  size: 16,
+                                  size: 16.r,
                                   color: c.brownMuted,
                                 ),
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 2),
+                        SizedBox(height: 2.h),
                         //  <--------- Stock Section --------->
                         //* TO show a stock dot with the brand and availability text
                         Row(
@@ -366,13 +369,16 @@ class _CartLineTile extends GetView<CartController> {
                               color: product.inStock ? c.accent : c.danger,
                               size: 10,
                             ),
-                            const SizedBox(width: 6),
+                            SizedBox(width: 6.w),
                             Expanded(
                               child: Text(
                                 subtitle,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontSize: 12, color: c.brown),
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  color: c.brown,
+                                ),
                               ),
                             ),
                           ],
@@ -388,7 +394,7 @@ class _CartLineTile extends GetView<CartController> {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 18.sp,
                                   fontWeight: FontWeight.w600,
                                   letterSpacing: -0.18,
                                   color: c.ink,
@@ -444,16 +450,16 @@ class _QuantityStepper extends StatelessWidget {
         onTap: onTap,
         customBorder: const CircleBorder(),
         child: SizedBox(
-          width: 24,
-          height: 24,
-          child: Icon(icon, size: 14, color: onTap == null ? c.muted : c.ink),
+          width: 24.r,
+          height: 24.r,
+          child: Icon(icon, size: 14.r, color: onTap == null ? c.muted : c.ink),
         ),
       );
     }
 
     //  <--------- Stepper Section --------->
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+      padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
       decoration: BoxDecoration(
         color: c.tint,
         borderRadius: BorderRadius.circular(999),
@@ -463,14 +469,14 @@ class _QuantityStepper extends StatelessWidget {
         children: [
           button(Icons.remove_rounded, onDecrement),
           ConstrainedBox(
-            constraints: const BoxConstraints(minWidth: 20),
+            constraints: BoxConstraints(minWidth: 20.w),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
+              padding: EdgeInsets.symmetric(horizontal: 8.w),
               child: Text(
                 '$quantity',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 0.24,
                   color: c.ink,
@@ -502,9 +508,9 @@ class _OrderSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
-    final labelStyle = TextStyle(fontSize: 14, color: c.brown);
+    final labelStyle = TextStyle(fontSize: 14.sp, color: c.brown);
     final valueStyle = TextStyle(
-      fontSize: 14,
+      fontSize: 14.sp,
       fontWeight: FontWeight.w600,
       letterSpacing: 0.14,
       color: c.ink,
@@ -521,10 +527,10 @@ class _OrderSummary extends StatelessWidget {
     );
 
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
         color: c.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         boxShadow: softShadow,
       ),
       child: Column(
@@ -534,19 +540,19 @@ class _OrderSummary extends StatelessWidget {
           Text(
             'Order Summary',
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 18.sp,
               fontWeight: FontWeight.w600,
               letterSpacing: -0.18,
               color: c.ink,
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           //  <--------- Line Rows Section --------->
           row('Items', '$itemCount'),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           row('Subtotal', Formatters.price(subtotal)),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12),
+            padding: EdgeInsets.symmetric(vertical: 12.h),
             child: Divider(height: 1, color: c.tintStrong),
           ),
           //  <--------- Total Section --------->
@@ -556,7 +562,7 @@ class _OrderSummary extends StatelessWidget {
               Text(
                 'Total',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.w600,
                   letterSpacing: -0.3,
                   color: c.ink,
@@ -565,7 +571,7 @@ class _OrderSummary extends StatelessWidget {
               Text(
                 Formatters.price(total),
                 style: TextStyle(
-                  fontSize: 28,
+                  fontSize: 28.sp,
                   fontWeight: FontWeight.w700,
                   letterSpacing: -0.7,
                   color: c.ink,
@@ -597,18 +603,18 @@ class _CheckoutBar extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color: c.navBar,
-            boxShadow: const [
+            boxShadow: [
               BoxShadow(
-                color: Color(0x0F0F1B33),
-                blurRadius: 24,
-                offset: Offset(0, -8),
+                color: const Color(0x0F0F1B33),
+                blurRadius: 24.r,
+                offset: const Offset(0, -8),
               ),
             ],
           ),
           child: SafeArea(
             top: false,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+              padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 16.h),
               child: Row(
                 children: [
                   //  <--------- Total Due Section --------->
@@ -619,7 +625,7 @@ class _CheckoutBar extends StatelessWidget {
                       Text(
                         'TOTAL DUE',
                         style: TextStyle(
-                          fontSize: 10,
+                          fontSize: 10.sp,
                           fontWeight: FontWeight.w700,
                           letterSpacing: 0.5,
                           color: c.brown,
@@ -631,20 +637,20 @@ class _CheckoutBar extends StatelessWidget {
                           Text(
                             Formatters.price(total),
                             style: TextStyle(
-                              fontSize: 24,
+                              fontSize: 24.sp,
                               fontWeight: FontWeight.w700,
                               letterSpacing: -0.48,
                               color: c.ink,
                               height: 1.33,
                             ),
                           ),
-                          const SizedBox(width: 4),
+                          SizedBox(width: 4.w),
                           Padding(
-                            padding: const EdgeInsets.only(bottom: 4),
+                            padding: EdgeInsets.only(bottom: 4.h),
                             child: Text(
                               'USD',
                               style: TextStyle(
-                                fontSize: 11,
+                                fontSize: 11.sp,
                                 fontWeight: FontWeight.w600,
                                 color: c.accent,
                               ),
@@ -654,13 +660,13 @@ class _CheckoutBar extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(width: 12),
+                  SizedBox(width: 12.w),
                   //  <--------- Checkout Button Section --------->
                   Expanded(
                     child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 230),
+                      constraints: BoxConstraints(maxWidth: 230.w),
                       child: SizedBox(
-                        height: 48,
+                        height: 48.h,
                         child: FilledButton(
                           onPressed: onCheckout,
                           style: FilledButton.styleFrom(
@@ -669,7 +675,7 @@ class _CheckoutBar extends StatelessWidget {
                             elevation: 3,
                             shadowColor: Colors.black26,
                           ),
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Flexible(
@@ -678,14 +684,14 @@ class _CheckoutBar extends StatelessWidget {
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 14.sp,
                                     fontWeight: FontWeight.w600,
                                     letterSpacing: 0.14,
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 8),
-                              Icon(Icons.arrow_forward_rounded, size: 14),
+                              SizedBox(width: 8.w),
+                              Icon(Icons.arrow_forward_rounded, size: 14.r),
                             ],
                           ),
                         ),

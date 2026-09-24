@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/theme.dart';
 import '../../../core/utils/formatters.dart';
@@ -26,7 +27,7 @@ class FavoriteCard extends StatelessWidget {
   final VoidCallback onMoveToBag;
 
   //* TO give the grid a fixed tile height
-  static const height = 323.0;
+  static double get height => 323.h;
 
   @override
   Widget build(BuildContext context) {
@@ -34,30 +35,30 @@ class FavoriteCard extends StatelessWidget {
 
     return Material(
       color: c.surface,
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(16.r),
       clipBehavior: Clip.antiAlias,
       elevation: 0.5,
       shadowColor: Colors.black12,
       child: InkWell(
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: EdgeInsets.all(8.r),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //  <--------- Image Section --------->
               //* TO show the hero thumbnail with a status pill and remove button on top
               SizedBox(
-                height: 155,
+                height: 155.h,
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r),
                       child: ColoredBox(
                         color: c.tintSoft,
                         child: Padding(
-                          padding: const EdgeInsets.all(10),
+                          padding: EdgeInsets.all(10.r),
                           child: Hero(
                             tag: ProductGallery.heroTag(product.id),
                             child: ProductImage(
@@ -68,11 +69,11 @@ class FavoriteCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Positioned(top: 8, left: 8, child: _statusPill(c)),
+                    Positioned(top: 8.h, left: 8.w, child: _statusPill(c)),
                     //!  <--------- Remove Button Section --------->
                     Positioned(
-                      top: 8,
-                      right: 8,
+                      top: 8.h,
+                      right: 8.w,
                       child: Tooltip(
                         message: 'Remove from favorites',
                         child: Material(
@@ -82,11 +83,11 @@ class FavoriteCard extends StatelessWidget {
                             onTap: onRemove,
                             customBorder: const CircleBorder(),
                             child: SizedBox(
-                              width: 28,
-                              height: 28,
+                              width: 28.r,
+                              height: 28.r,
                               child: Icon(
                                 Icons.favorite_rounded,
-                                size: 14,
+                                size: 14.r,
                                 color: c.rose,
                               ),
                             ),
@@ -97,7 +98,7 @@ class FavoriteCard extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10.h),
               //  <--------- Brand Section --------->
               //* TO fall back to the category label when the product has no brand
               Text(
@@ -106,28 +107,28 @@ class FavoriteCard extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontSize: 10,
+                  fontSize: 10.sp,
                   fontWeight: FontWeight.w700,
                   letterSpacing: 0.5,
                   color: c.brown,
                   height: 1.4,
                 ),
               ),
-              const SizedBox(height: 2),
+              SizedBox(height: 2.h),
               //  <--------- Title Section --------->
               Text(
                 product.title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
                   letterSpacing: -0.18,
                   color: c.ink,
                   height: 1.33,
                 ),
               ),
-              const SizedBox(height: 4),
+              SizedBox(height: 4.h),
               //  <--------- Rating Section --------->
               RatingBadge(
                 rating: product.rating,
@@ -137,7 +138,7 @@ class FavoriteCard extends StatelessWidget {
                 ratingColor: c.ink,
                 countColor: c.brown,
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               //  <--------- Price Section --------->
               //* TO show the final price next to the struck original price or the stock text
               Row(
@@ -149,7 +150,7 @@ class FavoriteCard extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.w700,
                         letterSpacing: -0.18,
                         color: c.ink,
@@ -157,7 +158,7 @@ class FavoriteCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 6),
+                  SizedBox(width: 6.w),
                   Flexible(
                     child: Text(
                       product.hasDiscount
@@ -166,7 +167,7 @@ class FavoriteCard extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 12.sp,
                         color: c.brown,
                         decoration: product.hasDiscount
                             ? TextDecoration.lineThrough
@@ -187,20 +188,20 @@ class FavoriteCard extends StatelessWidget {
                   onTap: product.inStock ? onMoveToBag : null,
                   customBorder: const StadiumBorder(),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.shopping_bag_outlined,
-                          size: 14,
+                          size: 14.r,
                           color: Colors.white,
                         ),
-                        const SizedBox(width: 6),
+                        SizedBox(width: 6.w),
                         Text(
                           product.inStock ? 'Move to Bag' : 'Sold out',
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
                             letterSpacing: 0.24,
                             color: Colors.white,

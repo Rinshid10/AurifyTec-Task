@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../app/theme.dart';
@@ -55,23 +56,23 @@ class CategoryChips extends StatelessWidget {
     return Obx(() {
       final selected = list.category.value;
       return categories.categories.value.when(
-        loading: () => const SizedBox(height: 38),
+        loading: () => SizedBox(height: 38.h),
         error: (_) => const SizedBox.shrink(),
         data: (slugs) {
           if (slugs.isEmpty) return const SizedBox.shrink();
           return SizedBox(
-            height: 38,
+            height: 38.h,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+              padding: EdgeInsets.symmetric(horizontal: 24.w),
               itemCount: slugs.length + 1,
-              separatorBuilder: (_, _) => const SizedBox(width: 10),
+              separatorBuilder: (_, _) => SizedBox(width: 10.w),
               itemBuilder: (context, index) {
                 if (index == 0) {
                   return _Chip(
                     label: 'All Items',
                     selected: selected == null,
-                    leading: const Icon(Icons.check_rounded, size: 14),
+                    leading: Icon(Icons.check_rounded, size: 14.r),
                     onTap: () => list.setCategory(null),
                   );
                 }
@@ -114,18 +115,18 @@ class _Chip extends StatelessWidget {
     return Material(
       color: selected ? c.button : c.surface,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
         side: BorderSide(color: selected ? c.button : c.border),
       ),
       shadowColor: Colors.black12,
       elevation: 0.5,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: selected ? 16 : 17,
-            vertical: selected ? 10 : 11,
+            horizontal: selected ? 16.w : 17.w,
+            vertical: selected ? 10.h : 11.h,
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -135,12 +136,12 @@ class _Chip extends StatelessWidget {
                   data: IconThemeData(color: fg),
                   child: leading!,
                 ),
-                const SizedBox(width: 6),
+                SizedBox(width: 6.w),
               ],
               Text(
                 label,
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 12.sp,
                   fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
                   color: fg,
                   height: 1.33,

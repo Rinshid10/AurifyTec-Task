@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/theme.dart';
 import '../../../core/utils/formatters.dart';
@@ -31,7 +32,7 @@ class ProductCard extends StatelessWidget {
 
   //  <--------- Constants --------->
   //* TO fix the card height since the image frame is a fixed 144px in the design
-  static const height = 272.0;
+  static double get height => 272.h;
 
   //  <--------- Helpers --------->
   //* TO wrap the thumbnail in a Hero when enabled
@@ -48,27 +49,27 @@ class ProductCard extends StatelessWidget {
 
     return Material(
       color: c.surface,
-      borderRadius: BorderRadius.circular(24),
+      borderRadius: BorderRadius.circular(24.r),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.all(12),
+          padding: EdgeInsets.all(12.r),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //  <--------- Image Section --------->
               SizedBox(
-                height: 144,
+                height: 144.h,
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(16.r),
                       child: ColoredBox(
                         color: c.imageBg,
                         child: Padding(
-                          padding: const EdgeInsets.all(8),
+                          padding: EdgeInsets.all(8.r),
                           child: _image(product),
                         ),
                       ),
@@ -95,14 +96,14 @@ class ProductCard extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10.h),
               //  <--------- Category And Title Section --------->
               Text(
                 Formatters.categoryLabel(product.category).toUpperCase(),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontSize: 10,
+                  fontSize: 10.sp,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 0.5,
                   color: c.muted,
@@ -114,13 +115,13 @@ class ProductCard extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.w700,
                   color: c.inkSoft,
                   height: 1.4,
                 ),
               ),
-              const SizedBox(height: 4),
+              SizedBox(height: 4.h),
               //  <--------- Rating Section --------->
               RatingBadge(
                 rating: product.rating,
@@ -131,7 +132,7 @@ class ProductCard extends StatelessWidget {
               Row(
                 children: [
                   Expanded(child: PriceText.forProduct(product)),
-                  const SizedBox(width: 6),
+                  SizedBox(width: 6.w),
                   _AddToBagButton(product: product),
                 ],
               ),
@@ -157,16 +158,16 @@ class _AddToBagButton extends StatelessWidget {
       message: 'Add to bag',
       child: Material(
         color: c.button,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         child: InkWell(
           onTap: () => addToBag(context, product),
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.r),
           child: SizedBox(
-            width: 28,
-            height: 28,
+            width: 28.r,
+            height: 28.r,
             child: Icon(
               Icons.shopping_bag_outlined,
-              size: 14,
+              size: 14.r,
               color: c.onButton,
             ),
           ),

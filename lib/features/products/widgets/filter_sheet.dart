@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../app/theme.dart';
@@ -23,8 +24,8 @@ class FilterSheet extends StatelessWidget {
       FilterSheet(list: list),
       isScrollControlled: true,
       backgroundColor: Get.theme.colorScheme.surface,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(28.r)),
       ),
     );
   }
@@ -43,7 +44,7 @@ class FilterSheet extends StatelessWidget {
         return Obx(
           () => ListView(
             controller: scrollController,
-            padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+            padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 24.h),
             children: [
               //!  <--------- Header And Reset Section --------->
               //* TO show the title and a Reset button enabled only when a filter is active
@@ -53,7 +54,7 @@ class FilterSheet extends StatelessWidget {
                     child: Text(
                       'Sort & filter',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.w800,
                         color: c.ink,
                       ),
@@ -65,13 +66,13 @@ class FilterSheet extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               //  <--------- Sort Section --------->
               _Label('Sort by'),
-              const SizedBox(height: 10),
+              SizedBox(height: 10.h),
               Wrap(
-                spacing: 8,
-                runSpacing: 8,
+                spacing: 8.w,
+                runSpacing: 8.h,
                 children: [
                   for (final sort in ProductSort.values)
                     ChoiceChip(
@@ -82,22 +83,22 @@ class FilterSheet extends StatelessWidget {
                     ),
                 ],
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: 24.h),
               //  <--------- Category Section --------->
               _Label('Category'),
-              const SizedBox(height: 10),
+              SizedBox(height: 10.h),
               categories.categories.value.when(
-                loading: () => const Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Center(child: CircularProgressIndicator()),
+                loading: () => Padding(
+                  padding: EdgeInsets.all(16.r),
+                  child: const Center(child: CircularProgressIndicator()),
                 ),
                 error: (_) => Text(
                   'Categories are unavailable right now.',
                   style: TextStyle(color: c.brown),
                 ),
                 data: (slugs) => Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
+                  spacing: 8.w,
+                  runSpacing: 8.h,
                   children: [
                     ChoiceChip(
                       label: const Text('All'),
@@ -120,7 +121,7 @@ class FilterSheet extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: 24.h),
               //  <--------- Show Results Section --------->
               FilledButton(
                 onPressed: Get.back,
@@ -146,7 +147,7 @@ class _Label extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        fontSize: 14,
+        fontSize: 14.sp,
         fontWeight: FontWeight.w600,
         color: context.colors.brown,
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../app/routes.dart';
@@ -154,7 +155,7 @@ class _FavoritesViewState extends State<FavoritesView> {
             //* TO show the My Favorites title, saved count pill and sort menu
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 8.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -163,13 +164,13 @@ class _FavoritesViewState extends State<FavoritesView> {
                         Text(
                           'My Favorites',
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 20.sp,
                             fontWeight: FontWeight.w600,
                             letterSpacing: -0.5,
                             color: c.ink,
                           ),
                         ),
-                        const SizedBox(width: 8),
+                        SizedBox(width: 8.w),
                         Pill(
                           label: '${all.length} saved',
                           background: c.chipRose,
@@ -182,13 +183,13 @@ class _FavoritesViewState extends State<FavoritesView> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: 4.h),
                     Text(
                       all.isEmpty
                           ? 'Tap the heart on any product to keep it here.'
                           : 'Products you saved, kept on this device.',
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 12.sp,
                         color: c.brown,
                         height: 1.5,
                       ),
@@ -202,10 +203,10 @@ class _FavoritesViewState extends State<FavoritesView> {
             if (all.isNotEmpty)
               SliverToBoxAdapter(
                 child: SizedBox(
-                  height: 48,
+                  height: 48.h,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
                     children: [
                       _CountChip(
                         label: 'All',
@@ -237,7 +238,7 @@ class _FavoritesViewState extends State<FavoritesView> {
             if (all.isEmpty)
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24),
+                  padding: EdgeInsets.symmetric(vertical: 24.h),
                   child: AppEmptyView(
                     icon: Icons.favorite_border_rounded,
                     title: 'No favorites yet',
@@ -245,7 +246,7 @@ class _FavoritesViewState extends State<FavoritesView> {
                     action: FilledButton.icon(
                       onPressed: () =>
                           Get.find<NavController>().select(NavController.home),
-                      icon: const Icon(Icons.storefront_outlined, size: 18),
+                      icon: Icon(Icons.storefront_outlined, size: 18.r),
                       label: const Text('Browse products'),
                     ),
                   ),
@@ -255,12 +256,12 @@ class _FavoritesViewState extends State<FavoritesView> {
               //  <--------- Favorites Grid Section --------->
               //* TO show the filtered favorites as two column cards
               SliverPadding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 16.h),
                 sliver: SliverGrid(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16.h,
+                    crossAxisSpacing: 16.w,
                     mainAxisExtent: FavoriteCard.height,
                   ),
                   delegate: SliverChildBuilderDelegate((context, i) {
@@ -281,9 +282,9 @@ class _FavoritesViewState extends State<FavoritesView> {
               //* TO show the in stock total with a move all to bag button
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 4,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 4.h,
                   ),
                   child: _SummaryBar(
                     total: inStockTotal,
@@ -328,7 +329,7 @@ class _CountChip extends StatelessWidget {
     final c = context.colors;
     final fg = selected ? c.onButton : c.brown;
     return Padding(
-      padding: const EdgeInsets.only(right: 8),
+      padding: EdgeInsets.only(right: 8.w),
       child: Center(
         child: Material(
           color: selected ? c.button : c.tint,
@@ -337,27 +338,27 @@ class _CountChip extends StatelessWidget {
             onTap: onTap,
             customBorder: const StadiumBorder(),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   //  <--------- Leading And Label Section --------->
-                  if (leading != null) ...[leading!, const SizedBox(width: 6)],
+                  if (leading != null) ...[leading!, SizedBox(width: 6.w)],
                   Text(
                     label,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 0.24,
                       color: fg,
                     ),
                   ),
-                  const SizedBox(width: 6),
+                  SizedBox(width: 6.w),
                   //  <--------- Count Section --------->
                   Text(
                     '$count',
                     style: TextStyle(
-                      fontSize: 10,
+                      fontSize: 10.sp,
                       fontWeight: FontWeight.w700,
                       letterSpacing: 0.4,
                       color: fg.withValues(alpha: 0.7),
@@ -390,7 +391,7 @@ class _SortMenu extends StatelessWidget {
       onSelected: onSelected,
       initialValue: current,
       color: c.surface,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
       //  <--------- Menu Items Section --------->
       itemBuilder: (context) => [
         for (final s in _FavoritesSort.values)
@@ -398,10 +399,10 @@ class _SortMenu extends StatelessWidget {
       ],
       //  <--------- Trigger Button Section --------->
       child: Container(
-        width: 36,
-        height: 36,
+        width: 36.r,
+        height: 36.r,
         decoration: BoxDecoration(color: c.tint, shape: BoxShape.circle),
-        child: Icon(Icons.swap_vert_rounded, size: 16, color: c.ink),
+        child: Icon(Icons.swap_vert_rounded, size: 16.r, color: c.ink),
       ),
     );
   }
@@ -425,15 +426,15 @@ class _SummaryBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.colors;
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
         color: c.surface,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: const [
+        borderRadius: BorderRadius.circular(16.r),
+        boxShadow: [
           BoxShadow(
-            color: Color(0x1A000000),
-            blurRadius: 6,
-            offset: Offset(0, 4),
+            color: const Color(0x1A000000),
+            blurRadius: 6.r,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -448,7 +449,7 @@ class _SummaryBar extends StatelessWidget {
                 Text(
                   'READY TO CHECKOUT',
                   style: TextStyle(
-                    fontSize: 10,
+                    fontSize: 10.sp,
                     fontWeight: FontWeight.w700,
                     letterSpacing: 0.25,
                     color: c.brown,
@@ -460,18 +461,18 @@ class _SummaryBar extends StatelessWidget {
                     Text(
                       Formatters.price(total),
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.w700,
                         letterSpacing: -0.3,
                         color: c.ink,
                         height: 1.4,
                       ),
                     ),
-                    const SizedBox(width: 6),
+                    SizedBox(width: 6.w),
                     Text(
                       '$inStockCount in-stock',
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 12.sp,
                         color: c.brown,
                         height: 1.8,
                       ),
@@ -488,9 +489,9 @@ class _SummaryBar extends StatelessWidget {
             style: FilledButton.styleFrom(
               backgroundColor: c.rose,
               foregroundColor: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
             ),
-            icon: const Icon(Icons.shopping_bag_outlined, size: 16),
+            icon: Icon(Icons.shopping_bag_outlined, size: 16.r),
             label: const Text('Move All to Bag'),
           ),
         ],

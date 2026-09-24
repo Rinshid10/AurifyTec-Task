@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/widgets/pill.dart';
 
@@ -37,7 +38,7 @@ class PromoCarousel extends StatefulWidget {
 
   final List<PromoSlide> slides;
 
-  static const height = 208.0;
+  static double get height => 208.h;
 
   @override
   State<PromoCarousel> createState() => _PromoCarouselState();
@@ -60,7 +61,7 @@ class _PromoCarouselState extends State<PromoCarousel> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
+      padding: EdgeInsets.fromLTRB(24.w, 16.h, 24.w, 8.h),
       child: SizedBox(
         height: PromoCarousel.height,
         child: PageView.builder(
@@ -101,10 +102,10 @@ class _PromoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(24),
+      borderRadius: BorderRadius.circular(24.r),
       child: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
             begin: Alignment(-0.85, -1),
             end: Alignment(0.85, 1),
             colors: [Color(0xFF0F2557), Color(0xFF1B3B8F), Color(0xFF0A1A3F)],
@@ -112,10 +113,10 @@ class _PromoCard extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: Color(0x1A0F2557),
-              blurRadius: 32,
+              color: const Color(0x1A0F2557),
+              blurRadius: 32.r,
               spreadRadius: -6,
-              offset: Offset(0, 12),
+              offset: const Offset(0, 12),
             ),
           ],
         ),
@@ -123,36 +124,36 @@ class _PromoCard extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             //  <--------- Ambient Glows Section --------->
-            const Positioned(
-              right: -32,
-              top: -32,
-              child: _Glow(size: 176, color: Color(0x4D3B82F6)),
+            Positioned(
+              right: -32.w,
+              top: -32.h,
+              child: _Glow(size: 176.r, color: const Color(0x4D3B82F6)),
             ),
-            const Positioned(
-              left: -40,
-              bottom: -40,
-              child: _Glow(size: 160, color: Color(0x3360A5FA)),
+            Positioned(
+              left: -40.w,
+              bottom: -40.h,
+              child: _Glow(size: 160.r, color: const Color(0x3360A5FA)),
             ),
             //  <--------- Product Photo Section --------->
             //* TO show the tilted product image on the right
             if (slide.imageUrl != null)
               Positioned(
-                right: 4,
-                bottom: 4,
-                width: 144,
-                height: 160,
+                right: 4.w,
+                bottom: 4.h,
+                width: 144.w,
+                height: 160.h,
                 child: Center(
                   child: Transform.rotate(
                     angle: 6 * 3.1415926 / 180,
                     child: Container(
-                      width: 144,
-                      height: 110,
-                      decoration: const BoxDecoration(
+                      width: 144.w,
+                      height: 110.h,
+                      decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: Color(0x26000000),
-                            blurRadius: 25,
-                            offset: Offset(0, 25),
+                            color: const Color(0x26000000),
+                            blurRadius: 25.r,
+                            offset: const Offset(0, 25),
                           ),
                         ],
                       ),
@@ -167,7 +168,7 @@ class _PromoCard extends StatelessWidget {
               ),
             //  <--------- Text And Action Section --------->
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: EdgeInsets.all(20.r),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -178,33 +179,33 @@ class _PromoCard extends StatelessWidget {
                     border: const Color(0x4D60A5FA),
                     foreground: _rosePale,
                     letterSpacing: 0.25,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 11,
-                      vertical: 5,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 11.w,
+                      vertical: 5.h,
                     ),
                     leading: const Dot(color: _rose),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   Text(
                     slide.title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 20,
+                    style: TextStyle(
+                      fontSize: 20.sp,
                       fontWeight: FontWeight.w800,
                       letterSpacing: -0.5,
                       color: Colors.white,
                       height: 1.25,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4.h),
                   SizedBox(
-                    width: 212,
+                    width: 212.w,
                     child: Text.rich(
                       TextSpan(
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: Color(0xFFCBD5E1),
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: const Color(0xFFCBD5E1),
                           height: 1.35,
                         ),
                         children: [
@@ -226,33 +227,33 @@ class _PromoCard extends StatelessWidget {
                   const Spacer(),
                   Material(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12.r),
                     elevation: 2,
                     shadowColor: Colors.black26,
                     child: InkWell(
                       onTap: slide.onAction,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16.w,
+                          vertical: 8.h,
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
                               slide.actionLabel,
-                              style: const TextStyle(
-                                fontSize: 12,
+                              style: TextStyle(
+                                fontSize: 12.sp,
                                 fontWeight: FontWeight.w700,
                                 color: _ink,
                                 height: 1.33,
                               ),
                             ),
-                            const SizedBox(width: 6),
-                            const Icon(
+                            SizedBox(width: 6.w),
+                            Icon(
                               Icons.arrow_forward_rounded,
-                              size: 14,
+                              size: 14.r,
                               color: _ink,
                             ),
                           ],
@@ -266,7 +267,7 @@ class _PromoCard extends StatelessWidget {
             //  <--------- Page Dots Section --------->
             if (pageCount > 1)
               Positioned(
-                bottom: 12,
+                bottom: 12.h,
                 left: 0,
                 right: 0,
                 child: Row(
@@ -275,9 +276,9 @@ class _PromoCard extends StatelessWidget {
                     for (var i = 0; i < pageCount; i++)
                       AnimatedContainer(
                         duration: const Duration(milliseconds: 250),
-                        margin: const EdgeInsets.symmetric(horizontal: 3),
-                        width: i == pageIndex ? 20 : 6,
-                        height: 6,
+                        margin: EdgeInsets.symmetric(horizontal: 3.w),
+                        width: i == pageIndex ? 20.w : 6.w,
+                        height: 6.h,
                         decoration: BoxDecoration(
                           color: i == pageIndex
                               ? Colors.white

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../app/theme.dart';
@@ -48,7 +49,7 @@ class ProfileView extends StatelessWidget {
           //  <--------- Header Section --------->
           const AppTopBar(title: 'Profile', showAvatar: false),
           SliverPadding(
-            padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
+            padding: EdgeInsets.fromLTRB(16.w, 4.h, 16.w, 0),
             sliver: SliverList.list(
               children: [
                 //  <--------- Profile Card Section --------->
@@ -87,30 +88,36 @@ class ProfileView extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                      padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
                       child: SizedBox(
                         width: double.infinity,
                         child: Obx(
                           () => SegmentedButton<ThemeMode>(
                             showSelectedIcon: false,
-                            segments: const [
+                            segments: [
                               ButtonSegment(
                                 value: ThemeMode.system,
-                                label: Text('System'),
+                                label: const Text('System'),
                                 icon: Icon(
                                   Icons.brightness_auto_outlined,
-                                  size: 16,
+                                  size: 16.r,
                                 ),
                               ),
                               ButtonSegment(
                                 value: ThemeMode.light,
-                                label: Text('Light'),
-                                icon: Icon(Icons.light_mode_outlined, size: 16),
+                                label: const Text('Light'),
+                                icon: Icon(
+                                  Icons.light_mode_outlined,
+                                  size: 16.r,
+                                ),
                               ),
                               ButtonSegment(
                                 value: ThemeMode.dark,
-                                label: Text('Dark'),
-                                icon: Icon(Icons.dark_mode_outlined, size: 16),
+                                label: const Text('Dark'),
+                                icon: Icon(
+                                  Icons.dark_mode_outlined,
+                                  size: 16.r,
+                                ),
                               ),
                             ],
                             selected: {theme.mode.value},
@@ -157,26 +164,26 @@ class ProfileView extends StatelessWidget {
                 ),
                 //!  <--------- Sign Out Section --------->
                 //* TO sign out and show the app version
-                const SizedBox(height: 28),
+                SizedBox(height: 28.h),
                 Center(
                   child: OutlinedButton.icon(
                     onPressed: _signOut,
                     style: OutlinedButton.styleFrom(
                       foregroundColor: c.brown,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 12,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 24.w,
+                        vertical: 12.h,
                       ),
                     ),
-                    icon: const Icon(Icons.logout_rounded, size: 16),
+                    icon: Icon(Icons.logout_rounded, size: 16.r),
                     label: const Text('Sign Out'),
                   ),
                 ),
-                const SizedBox(height: 6),
+                SizedBox(height: 6.h),
                 Center(
                   child: Text(
                     'Sell Store v$appVersion',
-                    style: TextStyle(fontSize: 12, color: c.brownMuted),
+                    style: TextStyle(fontSize: 12.sp, color: c.brownMuted),
                   ),
                 ),
                 SizedBox(height: bottomInset),
@@ -205,18 +212,18 @@ class _ProfileHeaderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.colors;
     return ClipRRect(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(16.r),
       child: Container(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20.r),
         decoration: BoxDecoration(color: c.surface, boxShadow: softShadow),
         child: Stack(
           children: [
             Positioned(
-              right: -48,
-              top: -48,
+              right: -48.w,
+              top: -48.h,
               child: Container(
-                width: 144,
-                height: 144,
+                width: 144.r,
+                height: 144.r,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
@@ -233,7 +240,7 @@ class _ProfileHeaderCard extends StatelessWidget {
                 Row(
                   children: [
                     UserAvatar(name: name, size: 64, showStatus: true),
-                    const SizedBox(width: 16),
+                    SizedBox(width: 16.w),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -243,7 +250,7 @@ class _ProfileHeaderCard extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 18.sp,
                               fontWeight: FontWeight.w600,
                               letterSpacing: -0.18,
                               color: c.ink,
@@ -253,19 +260,19 @@ class _ProfileHeaderCard extends StatelessWidget {
                             email,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 12, color: c.brown),
+                            style: TextStyle(fontSize: 12.sp, color: c.brown),
                           ),
                         ],
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 Container(
-                  padding: const EdgeInsets.all(12),
+                  padding: EdgeInsets.all(12.r),
                   decoration: BoxDecoration(
                     color: c.tintSoft,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12.r),
                   ),
                   child: Row(
                     children: [
@@ -276,19 +283,19 @@ class _ProfileHeaderCard extends StatelessWidget {
                               Text(
                                 value,
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.w600,
                                   letterSpacing: -0.3,
                                   color: highlight ? c.accent : c.ink,
                                   height: 1.4,
                                 ),
                               ),
-                              const SizedBox(height: 2),
+                              SizedBox(height: 2.h),
                               Text(
                                 label,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontSize: 10,
+                                  fontSize: 10.sp,
                                   fontWeight: FontWeight.w700,
                                   letterSpacing: 0.4,
                                   color: c.brown,
@@ -320,28 +327,28 @@ class _Section extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.colors;
     return Padding(
-      padding: const EdgeInsets.only(top: 20),
+      padding: EdgeInsets.only(top: 20.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
+            padding: EdgeInsets.symmetric(horizontal: 4.w),
             child: Text(
               label,
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w500,
                 letterSpacing: 0.14,
                 color: c.brown,
               ),
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           Container(
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
               color: c.surface,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16.r),
               boxShadow: softShadow,
             ),
             child: Column(children: children),
@@ -359,7 +366,7 @@ class _RowDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16),
+      padding: EdgeInsets.only(left: 16.w),
       child: Divider(height: 1, color: context.colors.divider),
     );
   }
@@ -389,19 +396,19 @@ class _SettingsRow extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.r),
         child: Row(
           children: [
             Container(
-              width: 36,
-              height: 36,
+              width: 36.r,
+              height: 36.r,
               decoration: BoxDecoration(
                 color: c.tintStrong,
                 shape: BoxShape.circle,
               ),
-              child: Icon(icon, size: 17, color: c.ink),
+              child: Icon(icon, size: 17.r, color: c.ink),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -409,7 +416,7 @@ class _SettingsRow extends StatelessWidget {
                   Text(
                     title,
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 0.14,
                       color: c.ink,
@@ -419,7 +426,7 @@ class _SettingsRow extends StatelessWidget {
                     subtitle,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 12, color: c.brown),
+                    style: TextStyle(fontSize: 12.sp, color: c.brown),
                   ),
                 ],
               ),
@@ -431,10 +438,10 @@ class _SettingsRow extends StatelessWidget {
                 foreground: c.onChipRose,
                 leading: Dot(color: c.rose),
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: 8.w),
             ],
             trailing ??
-                Icon(Icons.chevron_right_rounded, size: 18, color: c.brown),
+                Icon(Icons.chevron_right_rounded, size: 18.r, color: c.brown),
           ],
         ),
       ),

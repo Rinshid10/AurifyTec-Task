@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../app/theme.dart';
 
@@ -38,23 +39,27 @@ class BadgeIconButton extends StatelessWidget {
           onTap: onTap,
           customBorder: const CircleBorder(),
           child: SizedBox(
-            width: size,
-            height: size,
+            width: size.r,
+            height: size.r,
             child: Stack(
               clipBehavior: Clip.none,
               children: [
                 //  <--------- Icon --------->
-                Center(child: Icon(icon, size: 20, color: c.ink)),
+                Center(
+                  child: Icon(icon, size: 20.r, color: c.ink),
+                ),
                 //  <--------- Count Badge --------->
                 //* TO overlay the count in the corner only when it is above zero, capping the label at 99+
                 if (count > 0)
                   Positioned(
-                    top: filled ? -4 : 6,
-                    right: filled ? -4 : 6,
+                    top: filled ? -4.h : 6.h,
+                    right: filled ? -4.w : 6.w,
                     child: Container(
-                      height: filled ? 19 : 16,
-                      constraints: BoxConstraints(minWidth: filled ? 19 : 16),
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      height: filled ? 19.h : 16.h,
+                      constraints: BoxConstraints(
+                        minWidth: filled ? 19.w : 16.w,
+                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 4.w),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: c.accent,
@@ -65,9 +70,9 @@ class BadgeIconButton extends StatelessWidget {
                       ),
                       child: Text(
                         count > 99 ? '99+' : '$count',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
-                          fontSize: 10,
+                          fontSize: 10.sp,
                           fontWeight: FontWeight.w700,
                           height: 1,
                         ),

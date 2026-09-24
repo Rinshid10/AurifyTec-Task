@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../app/theme.dart';
 import '../utils/formatters.dart';
@@ -35,14 +36,14 @@ class RatingBadge extends StatelessWidget {
         //  <--------- Star And Rating --------->
         Icon(
           Icons.star_rounded,
-          size: iconSize + 3,
+          size: (iconSize + 3).r,
           color: const Color(0xFFF59E0B),
         ),
-        const SizedBox(width: 3),
+        SizedBox(width: 3.w),
         Text(
           Formatters.rating(rating),
           style: TextStyle(
-            fontSize: ratingSize,
+            fontSize: ratingSize.sp,
             fontWeight: FontWeight.w700,
             color: ratingColor ?? c.inkSoft,
           ),
@@ -50,10 +51,13 @@ class RatingBadge extends StatelessWidget {
         //  <--------- Review Count --------->
         //* TO append the compact review count only when there is one
         if (reviewCount != null && reviewCount! > 0) ...[
-          const SizedBox(width: 4),
+          SizedBox(width: 4.w),
           Text(
             '(${Formatters.compact(reviewCount!)})',
-            style: TextStyle(fontSize: countSize, color: countColor ?? c.muted),
+            style: TextStyle(
+              fontSize: countSize.sp,
+              color: countColor ?? c.muted,
+            ),
           ),
         ],
       ],

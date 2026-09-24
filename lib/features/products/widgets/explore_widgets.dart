@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../app/theme.dart';
@@ -33,8 +34,8 @@ class ExploreSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.colors;
     return Container(
-      height: 52,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      height: 52.h,
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
       decoration: BoxDecoration(
         color: c.surface,
         borderRadius: BorderRadius.circular(999),
@@ -42,18 +43,18 @@ class ExploreSearchBar extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(Icons.search_rounded, size: 18, color: c.brown),
-          const SizedBox(width: 12),
+          Icon(Icons.search_rounded, size: 18.r, color: c.brown),
+          SizedBox(width: 12.w),
           Expanded(
             child: TextField(
               controller: controller,
               onChanged: onChanged,
               textInputAction: TextInputAction.search,
-              style: TextStyle(fontSize: 16, color: c.ink),
+              style: TextStyle(fontSize: 16.sp, color: c.ink),
               decoration: InputDecoration(
                 hintText: 'Search products, brands, tags...',
                 hintStyle: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w400,
                   color: c.brown.withValues(alpha: 0.6),
                 ),
@@ -71,7 +72,7 @@ class ExploreSearchBar extends StatelessWidget {
           ValueListenableBuilder<TextEditingValue>(
             valueListenable: controller,
             builder: (context, value, _) {
-              if (value.text.isEmpty) return const SizedBox(width: 4);
+              if (value.text.isEmpty) return SizedBox(width: 4.w);
               return Material(
                 color: c.tint,
                 shape: const CircleBorder(),
@@ -79,9 +80,9 @@ class ExploreSearchBar extends StatelessWidget {
                   onTap: onClear,
                   customBorder: const CircleBorder(),
                   child: SizedBox(
-                    width: 32,
-                    height: 32,
-                    child: Icon(Icons.close_rounded, size: 16, color: c.ink),
+                    width: 32.r,
+                    height: 32.r,
+                    child: Icon(Icons.close_rounded, size: 16.r, color: c.ink),
                   ),
                 ),
               );
@@ -108,25 +109,25 @@ class TrendingRow extends StatelessWidget {
     final c = context.colors;
     if (terms.isEmpty) return const SizedBox.shrink();
     return SizedBox(
-      height: 36,
+      height: 36.h,
       child: ListView(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
+            padding: EdgeInsets.symmetric(horizontal: 4.w),
             child: Row(
               children: [
                 Icon(
                   Icons.local_fire_department_rounded,
-                  size: 14,
+                  size: 14.r,
                   color: c.accent,
                 ),
-                const SizedBox(width: 4),
+                SizedBox(width: 4.w),
                 Text(
                   'POPULAR',
                   style: TextStyle(
-                    fontSize: 10,
+                    fontSize: 10.sp,
                     fontWeight: FontWeight.w700,
                     letterSpacing: 0.5,
                     color: c.accent,
@@ -137,7 +138,7 @@ class TrendingRow extends StatelessWidget {
           ),
           for (final term in terms)
             Padding(
-              padding: const EdgeInsets.only(left: 8),
+              padding: EdgeInsets.only(left: 8.w),
               child: Center(
                 child: Material(
                   color: c.surface,
@@ -148,14 +149,14 @@ class TrendingRow extends StatelessWidget {
                     onTap: () => onTap(term),
                     customBorder: const StadiumBorder(),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 6,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 14.w,
+                        vertical: 6.h,
                       ),
                       child: Text(
                         Formatters.categoryLabel(term),
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.w600,
                           letterSpacing: 0.24,
                           color: c.ink,
@@ -182,7 +183,7 @@ class CategoryGridCard extends StatelessWidget {
   final VoidCallback onTap;
 
   //  <--------- Constants --------->
-  static const height = 112.0;
+  static double get height => 112.h;
 
   //  <--------- Build --------->
   @override
@@ -194,7 +195,7 @@ class CategoryGridCard extends StatelessWidget {
       height: height,
       child: Material(
         color: c.surface,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
         clipBehavior: Clip.antiAlias,
         elevation: 0.5,
         shadowColor: Colors.black12,
@@ -212,23 +213,23 @@ class CategoryGridCard extends StatelessWidget {
               children: [
                 if (thumbnail != null)
                   Positioned(
-                    right: -12,
-                    bottom: -12,
-                    width: 96,
-                    height: 96,
+                    right: -12.w,
+                    bottom: -12.h,
+                    width: 96.r,
+                    height: 96.r,
                     child: Opacity(
                       opacity: 0.9,
                       child: ProductImage(url: thumbnail, fit: BoxFit.contain),
                     ),
                   ),
                 Padding(
-                  padding: const EdgeInsets.all(14),
+                  padding: EdgeInsets.all(14.r),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        width: 32,
-                        height: 32,
+                        width: 32.r,
+                        height: 32.r,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: c.tintStrong,
@@ -236,7 +237,7 @@ class CategoryGridCard extends StatelessWidget {
                         ),
                         child: Text(
                           CategoryChips.emojiFor(slug),
-                          style: const TextStyle(fontSize: 15),
+                          style: TextStyle(fontSize: 15.sp),
                         ),
                       ),
                       const Spacer(),
@@ -247,7 +248,7 @@ class CategoryGridCard extends StatelessWidget {
                           Formatters.categoryLabel(slug),
                           maxLines: 1,
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.w600,
                             letterSpacing: -0.18,
                             color: c.ink,
@@ -255,11 +256,11 @@ class CategoryGridCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 2),
+                      SizedBox(height: 2.h),
                       Text(
                         count,
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 12.sp,
                           color: c.brown,
                           height: 1.4,
                         ),
@@ -297,15 +298,15 @@ class BrandBubble extends StatelessWidget {
     final c = context.colors;
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(16.r),
       child: SizedBox(
-        width: 72,
+        width: 72.w,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 64,
-              height: 64,
+              width: 64.r,
+              height: 64.r,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: c.surface,
@@ -315,20 +316,20 @@ class BrandBubble extends StatelessWidget {
               child: Text(
                 Formatters.initials(name),
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w700,
                   letterSpacing: -0.5,
                   color: accent ? c.accent : c.ink,
                 ),
               ),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             Text(
               name,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                fontSize: 12,
+                fontSize: 12.sp,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0.24,
                 height: 1.2,
@@ -362,7 +363,7 @@ class TopRatedCard extends StatelessWidget {
 
   //  <--------- Constants --------->
   //* TO fix the height of the text block under the square image
-  static const textBlockHeight = 144.0;
+  static double get textBlockHeight => 144.h;
 
   //  <--------- Build --------->
   @override
@@ -376,14 +377,14 @@ class TopRatedCard extends StatelessWidget {
 
     return Material(
       color: c.surface,
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(16.r),
       clipBehavior: Clip.antiAlias,
       elevation: 0.5,
       shadowColor: Colors.black12,
       child: InkWell(
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.all(12),
+          padding: EdgeInsets.all(12.r),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -394,11 +395,11 @@ class TopRatedCard extends StatelessWidget {
                   fit: StackFit.expand,
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r),
                       child: ColoredBox(
                         color: c.tintSoft,
                         child: Padding(
-                          padding: const EdgeInsets.all(8),
+                          padding: EdgeInsets.all(8.r),
                           child: ProductImage(
                             url: product.thumbnail,
                             fit: BoxFit.contain,
@@ -408,8 +409,8 @@ class TopRatedCard extends StatelessWidget {
                     ),
                     if (label != null)
                       Positioned(
-                        left: 8,
-                        bottom: 8,
+                        left: 8.w,
+                        bottom: 8.h,
                         child: Pill(
                           label: label,
                           background: c.surface.withValues(alpha: 0.9),
@@ -417,14 +418,14 @@ class TopRatedCard extends StatelessWidget {
                         ),
                       ),
                     Positioned(
-                      top: -2,
-                      right: -2,
+                      top: -2.h,
+                      right: -2.w,
                       child: FavoriteButton(product: product, size: 32),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10.h),
               //  <--------- Brand And Title Section --------->
               Text(
                 (product.brand ?? Formatters.categoryLabel(product.category))
@@ -432,27 +433,27 @@ class TopRatedCard extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontSize: 10,
+                  fontSize: 10.sp,
                   fontWeight: FontWeight.w700,
                   letterSpacing: 0.5,
                   color: c.brownMuted,
                   height: 1.4,
                 ),
               ),
-              const SizedBox(height: 4),
+              SizedBox(height: 4.h),
               Text(
                 product.title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 0.14,
                   color: c.ink,
                   height: 1.4,
                 ),
               ),
-              const SizedBox(height: 4),
+              SizedBox(height: 4.h),
               //  <--------- Rating Section --------->
               RatingBadge(
                 rating: product.rating,
@@ -480,7 +481,7 @@ class TopRatedCard extends StatelessWidget {
                           Text(
                             Formatters.price(product.price),
                             style: TextStyle(
-                              fontSize: 10,
+                              fontSize: 10.sp,
                               fontWeight: FontWeight.w700,
                               letterSpacing: 0.4,
                               decoration: TextDecoration.lineThrough,
@@ -491,7 +492,7 @@ class TopRatedCard extends StatelessWidget {
                           Text(
                             product.inStock ? 'In stock' : 'Out of stock',
                             style: TextStyle(
-                              fontSize: 10,
+                              fontSize: 10.sp,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 0.4,
                               color: c.accent,
@@ -508,12 +509,12 @@ class TopRatedCard extends StatelessWidget {
                     child: InkWell(
                       onTap: () => addToBag(context, product),
                       customBorder: const CircleBorder(),
-                      child: const SizedBox(
-                        width: 36,
-                        height: 36,
+                      child: SizedBox(
+                        width: 36.r,
+                        height: 36.r,
                         child: Icon(
                           Icons.shopping_bag_outlined,
-                          size: 16,
+                          size: 16.r,
                           color: Colors.white,
                         ),
                       ),

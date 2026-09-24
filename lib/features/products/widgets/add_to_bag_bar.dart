@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../app/theme.dart';
@@ -38,18 +39,18 @@ class _AddToBagBarState extends State<AddToBagBar> {
         child: Container(
           decoration: BoxDecoration(
             color: c.navBar,
-            boxShadow: const [
+            boxShadow: [
               BoxShadow(
-                color: Color(0x140F1B33),
-                blurRadius: 24,
-                offset: Offset(0, -8),
+                color: const Color(0x140F1B33),
+                blurRadius: 24.r,
+                offset: const Offset(0, -8),
               ),
             ],
           ),
           child: SafeArea(
             top: false,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+              padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 12.h),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -66,10 +67,10 @@ class _AddToBagBarState extends State<AddToBagBar> {
                             ? () => setState(() => _quantity++)
                             : null,
                       ),
-                      const SizedBox(width: 12),
+                      SizedBox(width: 12.w),
                       Expanded(
                         child: SizedBox(
-                          height: 48,
+                          height: 48.h,
                           child: FilledButton.icon(
                             onPressed: product.inStock
                                 ? () => addToBag(
@@ -86,10 +87,7 @@ class _AddToBagBarState extends State<AddToBagBar> {
                               elevation: 6,
                               shadowColor: c.rose.withValues(alpha: 0.35),
                             ),
-                            icon: const Icon(
-                              Icons.shopping_bag_outlined,
-                              size: 18,
-                            ),
+                            icon: Icon(Icons.shopping_bag_outlined, size: 18.r),
                             label: FittedBox(
                               fit: BoxFit.scaleDown,
                               child: Text(
@@ -103,7 +101,7 @@ class _AddToBagBarState extends State<AddToBagBar> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   //  <--------- Micro-copy Section --------->
                   //* TO show bag count, shipping and returns notes when available
                   Obx(() {
@@ -135,24 +133,25 @@ class _AddToBagBarState extends State<AddToBagBar> {
                         for (var i = 0; i < notes.length; i++) ...[
                           if (i > 0)
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 12.w),
                               child: Text(
                                 '•',
-                                style: TextStyle(fontSize: 10, color: c.brown),
+                                style: TextStyle(
+                                  fontSize: 10.sp,
+                                  color: c.brown,
+                                ),
                               ),
                             ),
                           Icon(
                             notes[i].$1,
-                            size: 12,
+                            size: 12.r,
                             color: notes[i].$3 ? c.accent : c.brown,
                           ),
-                          const SizedBox(width: 4),
+                          SizedBox(width: 4.w),
                           Text(
                             notes[i].$2,
                             style: TextStyle(
-                              fontSize: 10,
+                              fontSize: 10.sp,
                               fontWeight: FontWeight.w700,
                               letterSpacing: 0.4,
                               color: notes[i].$3 ? c.accent : c.brown,
@@ -198,17 +197,21 @@ class _Stepper extends StatelessWidget {
           onTap: onTap,
           customBorder: const CircleBorder(),
           child: SizedBox(
-            width: 28,
-            height: 28,
-            child: Icon(icon, size: 14, color: onTap == null ? c.muted : c.ink),
+            width: 28.r,
+            height: 28.r,
+            child: Icon(
+              icon,
+              size: 14.r,
+              color: onTap == null ? c.muted : c.ink,
+            ),
           ),
         ),
       );
     }
 
     return Container(
-      width: 96,
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      width: 96.w,
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
       decoration: BoxDecoration(
         color: c.tintSoft,
         borderRadius: BorderRadius.circular(999),
@@ -220,7 +223,7 @@ class _Stepper extends StatelessWidget {
           Text(
             '$quantity',
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w700,
               letterSpacing: 0.14,
               color: c.ink,

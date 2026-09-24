@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../app/theme.dart';
 import '../../features/products/data/product.dart';
@@ -56,7 +57,7 @@ class PriceText extends StatelessWidget {
             Formatters.price(price),
             maxLines: 1,
             style: TextStyle(
-              fontSize: priceSize,
+              fontSize: priceSize.sp,
               fontWeight: FontWeight.w800,
               color: priceColor ?? c.ink,
               height: 1.3,
@@ -65,12 +66,12 @@ class PriceText extends StatelessWidget {
           //  <--------- Original Price --------->
           //* TO strike through the original price only when one was given and it is higher
           if (strike != null && strike > price) ...[
-            SizedBox(width: gap),
+            SizedBox(width: gap.w),
             Text(
               Formatters.price(strike),
               maxLines: 1,
               style: TextStyle(
-                fontSize: strikeSize,
+                fontSize: strikeSize.sp,
                 decoration: TextDecoration.lineThrough,
                 color: strikeColor ?? c.muted,
                 height: 1.5,
